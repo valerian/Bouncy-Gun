@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
     public float startingHealth = 1f;
     public float explostionRadius = 2.0F;
     public float explostionPower = 100.0F;
+    public GameObject bounceSparks;
 
     private float health;
     private Rigidbody2D _rb = null;
@@ -41,17 +42,18 @@ public class Enemy : MonoBehaviour {
         Rigidbody2D collisionRigidBody = collision.gameObject.GetComponent<Rigidbody2D>();
         if (collisionRigidBody != null)
             mass = Mathf.Min(rb.mass, collisionRigidBody.mass);
-        float damage = collision.relativeVelocity.magnitude * mass;
+        float damage = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity)) * mass;
         if (collision.gameObject.tag == "Player")
             damage /= 2;
         BroadcastMessage("Damaged", damage / health, SendMessageOptions.DontRequireReceiver);
         health -= damage;
+        Instantiate(bounceSparks, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation);
     }
 
     void OnDestroy()
     {
-        Instantiate(explosionParticles, transform.position + new Vector3(0f, 0f, -0.5f), transform.rotation);
-        Instantiate(debrisParticles, transform.position + new Vector3(0f, 0f, 0), transform.rotation);
+        Instantiate(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
+        Instantiate(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
 
         Vector2 explosionPos = transform.position;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionPos, explostionRadius);
