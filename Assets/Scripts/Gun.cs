@@ -12,6 +12,8 @@ public class Gun : MonoBehaviour {
     public float energyMax = 100f;
     public float energyRegen = 0.1f;
     public float energyPerShot = 25f;
+    public AudioSource fireAudio;
+    public AudioSource chargingAudio;
 
     private float chargingStartTime;
     private bool isCharged = false;
@@ -43,6 +45,7 @@ public class Gun : MonoBehaviour {
             isCharged = false;
             isCharging = false;
             transform.rotation = Quaternion.identity;
+            chargingAudio.Stop();
             return;
         }
         UpdateAimAndFire();
@@ -69,13 +72,23 @@ public class Gun : MonoBehaviour {
             isCharging = true;
             chargingStartTime = Time.time;
             BroadcastMessage("Charging", null, SendMessageOptions.DontRequireReceiver);
+            chargingAudio.Play();
         }
 
         if (isCharging && !isCharged && Input.GetButton("Fire1") && Time.time >= chargingStartTime + fireRate)
         {
             isCharging = false;
             isCharged = true;
+            //chargingAudio.Stop();
             BroadcastMessage("Charged", null, SendMessageOptions.DontRequireReceiver);
+        }
+
+        if (isCharged)
+        {
+            if (chargingAudio.time >= 1.2f)
+                chargingAudio.pitch = -1.2f;
+            if (chargingAudio.time <= 1.0f)
+                chargingAudio.pitch = 1.2f;
         }
 
         if ((isCharging || isCharged) && Input.GetButtonUp("Fire1"))
@@ -88,6 +101,11 @@ public class Gun : MonoBehaviour {
             GameObject instance = (GameObject)Instantiate(bullet, transform.position + (transform.up * 1.5f) + new Vector3(0, 0, -0.2f), transform.rotation);
             instance.GetComponent<Bullet>().Launch(transform.up, initialVelocity * powerRatio);
             BroadcastMessage("Fired", null, SendMessageOptions.DontRequireReceiver);
+            fireAudio.Play();
+            fireAudio.pitch = 1.3f - (powerRatio * powerRatio * 0.6f);
+            fireAudio.volume = 0.1f + (powerRatio * powerRatio * powerRatio * 0.3f);
+            chargingAudio.Stop();
+            chargingAudio.pitch = 1f;
             isCharged = false;
             isCharging = false;
         }
@@ -138,7 +156,7 @@ public class Gun : MonoBehaviour {
         GUI.DrawTexture(new Rect(topLeft.x, 0, bottomRight.x - topLeft.x, Screen.height), lineTex);
 
         //Draw health bar
-        GUI.color = new Color(1f, 0.4f, 0.2f);
+        GUI.color = new Color(1f, 0.2f, 0.2f);
         GUI.DrawTexture(new Rect(topLeft.x, Screen.height * (1f - (GameManager.instance.health / GameManager.instance.maxHealth)), bottomRight.x - topLeft.x, Screen.height * (GameManager.instance.health / GameManager.instance.maxHealth)), lineTex);
 
         // We're done.  Restore the GUI matrix and GUI color to whatever they were before.

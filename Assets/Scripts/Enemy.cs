@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour {
     public float explostionRadius = 2.0F;
     public float explostionPower = 100.0F;
     public GameObject bounceSparks;
+    public GameObject bounceSoundEffect;
+    public GameObject explosionSoundEffect;
 
     private float health;
     private Rigidbody2D _rb = null;
@@ -53,12 +55,20 @@ public class Enemy : MonoBehaviour {
         BroadcastMessage("Damaged", damage / health, SendMessageOptions.DontRequireReceiver);
         health -= damage;
         Instantiate(bounceSparks, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation);
+        AudioSource bounceAudio = ((GameObject) Instantiate(bounceSoundEffect, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation)).GetComponent<AudioSource>();
+        bounceAudio.pitch = Random.Range(0.5f, 1.2f);
+        bounceAudio.volume = Mathf.Min(1.0f, damage / 30f);
+        bounceAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
+        //bounceAudio.volume = 1f;
     }
 
     void OnDestroy()
     {
         Instantiate(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
         Instantiate(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
+        AudioSource explosionAudio = ((GameObject)Instantiate(explosionSoundEffect, transform.position + new Vector3(0f, 0f, 0f), transform.rotation)).GetComponent<AudioSource>();
+        explosionAudio.pitch = Random.Range(1.0f, 1.5f);
+        explosionAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
 
         Vector2 explosionPos = transform.position;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(explosionPos, explostionRadius);

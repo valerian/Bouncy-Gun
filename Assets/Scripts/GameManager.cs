@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour {
             Destroy(instance);
         instance = this;
         health = maxHealth;
+        for (int i = 0; i <= 8; i++)
+        {
+            spawnCounter++;
+            Instantiate(enemy, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
+        }
     }
 
     void FixedUpdate () {
@@ -32,7 +37,7 @@ public class GameManager : MonoBehaviour {
                 Instantiate(enemy, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
         }
 
-        if (health < 0)
+        if (health <= 0)
         {
             playing = false;
         }
