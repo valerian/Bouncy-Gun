@@ -30,6 +30,11 @@ public class Enemy : MonoBehaviour {
     
     // Update is called once per frame
     void FixedUpdate () {
+        if (GameManager.instance.playing == false)
+        {
+            Destroy(gameObject);
+            return;
+        }
         rb.AddForce(-transform.up * thrust);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), new Vector3(0, 1, 0)), 0.035f);
         if (health <= 0)

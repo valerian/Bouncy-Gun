@@ -18,4 +18,9 @@ public class GunFireSparks : MonoBehaviour {
     {
         ps.Play();
     }
+
+    public void GameStop()
+    {
+        ps.Stop();
+    }
 }

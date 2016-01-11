@@ -15,6 +15,10 @@ public class DeadZone : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            GameManager.instance.health = GameManager.instance.health - 10;
+        }
         Destroy(collision.gameObject);
     }
 }

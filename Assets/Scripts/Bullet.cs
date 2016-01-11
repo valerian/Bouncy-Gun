@@ -28,6 +28,11 @@ public class Bullet : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate () 
     {
+        if (GameManager.instance.playing == false)
+        {
+            Destroy(gameObject);
+            return;
+        }
         timeToLive--;
         GetComponent<Light>().intensity = Mathf.Sqrt(timeToLive / initialTimeToLive);
         GetComponent<Renderer>().material.SetColor("_TintColor", new Color(1, 1, 1, Mathf.Sqrt(timeToLive / initialTimeToLive)));

@@ -23,4 +23,9 @@ public class GunChargedEffect : MonoBehaviour {
     {
         ps.Play();
     }
+
+    public void GameStop()
+    {
+        ps.Stop();
+    }
 }
