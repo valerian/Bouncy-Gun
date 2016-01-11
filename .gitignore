@@ -1,0 +1,47 @@
+# ===================================== #
+# UNITY FOLDERS
+# ===================================== #
+Temp
+Library
+Obj
+obj
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated
+# ===================================== #
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
+# ===================================== #
+# OS generated
+# ===================================== #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
