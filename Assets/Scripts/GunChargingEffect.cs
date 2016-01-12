@@ -14,12 +14,17 @@ public class GunChargingEffect : MonoBehaviour {
         }
     }
 
-    public void Charging()
+    public void Charging(float duration)
     {
         ps.Play();
     }
 
     public void Fired()
+    {
+        ps.Stop();
+    }
+
+    public void Charged()
     {
         ps.Stop();
     }

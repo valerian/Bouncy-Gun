@@ -6,8 +6,7 @@ public class Bullet : MonoBehaviour {
     public GameObject bounceSparks;
     public GameObject bounceSound;
 
-    private float timeToLive;
-    private float initialTimeToLive = 150;
+    private float creationTime;
 
     private Rigidbody2D _rb = null;
     private Rigidbody2D rb
@@ -23,10 +22,15 @@ public class Bullet : MonoBehaviour {
     // Use this for initialization
     void Awake () 
     {
-        timeToLive = initialTimeToLive;
+        creationTime = Time.time;
     }
     
-    // Update is called once per frame
+    void Update ()
+    {
+        GetComponent<Light>().intensity = Mathf.Sqrt(1f - ((Time.time - creationTime) / GameManager.instance.bulletDuration));
+        GetComponent<Renderer>().material.SetColor("_TintColor", new Color(1, 1, 1, Mathf.Sqrt(1f - ((Time.time - creationTime) / GameManager.instance.bulletDuration))));
+    }
+
     void FixedUpdate () 
     {
         if (GameManager.instance.playing == false)
@@ -34,10 +38,7 @@ public class Bullet : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-        timeToLive--;
-        GetComponent<Light>().intensity = Mathf.Sqrt(timeToLive / initialTimeToLive);
-        GetComponent<Renderer>().material.SetColor("_TintColor", new Color(1, 1, 1, Mathf.Sqrt(timeToLive / initialTimeToLive)));
-        if (timeToLive == 0)
+        if ((Time.time - creationTime) > GameManager.instance.bulletDuration)
             Destroy(gameObject);
     }
 

@@ -6,6 +6,7 @@ public class SoundAutoDestroy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Destroy(gameObject, 1f);
+        AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+        Destroy(gameObject, audioSource.clip.length * (1 / audioSource.pitch));
     }
 }

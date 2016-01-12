@@ -12,7 +12,11 @@ public class Enemy : MonoBehaviour {
     public GameObject bounceSparks;
     public GameObject bounceSoundEffect;
     public GameObject explosionSoundEffect;
+    public float collisionSoundInterval = 0.5f;
+    public float collisionSparkInterval = 0.2f;
 
+    private float lastCollisionSound;
+    private float lastCollisionSpark;
     private float health;
     private Rigidbody2D _rb = null;
     private Rigidbody2D rb
@@ -28,6 +32,8 @@ public class Enemy : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         health = startingHealth;
+        lastCollisionSound = Time.time;
+        lastCollisionSpark = Time.time;
     }
     
     // Update is called once per frame
@@ -54,16 +60,29 @@ public class Enemy : MonoBehaviour {
             damage /= 2;
         BroadcastMessage("Damaged", damage / health, SendMessageOptions.DontRequireReceiver);
         health -= damage;
-        Instantiate(bounceSparks, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation);
-        AudioSource bounceAudio = ((GameObject) Instantiate(bounceSoundEffect, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation)).GetComponent<AudioSource>();
-        bounceAudio.pitch = Random.Range(0.5f, 1.2f);
-        bounceAudio.volume = Mathf.Min(1.0f, damage / 30f);
-        bounceAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
-        //bounceAudio.volume = 1f;
+
+        if (lastCollisionSpark + collisionSparkInterval < Time.time)
+        {
+            lastCollisionSpark = Time.time;
+            Instantiate(bounceSparks, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation);
+        }
+
+        if (lastCollisionSound + collisionSparkInterval < Time.time)
+        {
+            lastCollisionSound = Time.time;
+            AudioSource bounceAudio = ((GameObject)Instantiate(bounceSoundEffect, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation)).GetComponent<AudioSource>();
+            bounceAudio.pitch = Random.Range(0.5f, 1.2f);
+            bounceAudio.volume = Mathf.Min(1.0f, damage / 30f);
+            bounceAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
+        }
     }
 
     void OnDestroy()
     {
+        if (GameManager.instance.playing == false)
+        {
+            return;
+        }
         Instantiate(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
         Instantiate(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
         AudioSource explosionAudio = ((GameObject)Instantiate(explosionSoundEffect, transform.position + new Vector3(0f, 0f, 0f), transform.rotation)).GetComponent<AudioSource>();
@@ -77,29 +96,14 @@ public class Enemy : MonoBehaviour {
             Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
 
             if (rb != null && rb.gameObject.tag != "Player")
-                rb.AddExplosionForce(explostionPower, explosionPos, explostionRadius);
+                AddExplosionForce(rb, explostionPower, explosionPos, explostionRadius);
         } 
     }
-}
 
-public static class Rigidbody2DExtension
-{
-    public static void AddExplosionForce(this Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius)
+    void AddExplosionForce(Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius)
     {
         var dir = (body.transform.position - explosionPosition);
         float wearoff = 1 - (dir.magnitude / explosionRadius);
         body.AddForce(dir.normalized * explosionForce * wearoff);
-    }
-
-    public static void AddExplosionForce(this Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius, float upliftModifier)
-    {
-        var dir = (body.transform.position - explosionPosition);
-        float wearoff = 1 - (dir.magnitude / explosionRadius);
-        Vector3 baseForce = dir.normalized * explosionForce * wearoff;
-        body.AddForce(baseForce);
-
-        float upliftWearoff = 1 - upliftModifier / explosionRadius;
-        Vector3 upliftForce = Vector2.up * explosionForce * upliftWearoff;
-        body.AddForce(upliftForce);
     }
 }
