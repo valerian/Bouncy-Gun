@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
     public GameObject bounceSound;
 
     private float timeToLive;
-    private float initialTimeToLive = 100;
+    private float initialTimeToLive = 150;
 
     private Rigidbody2D _rb = null;
     private Rigidbody2D rb
