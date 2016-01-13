@@ -50,6 +50,6 @@ public class Bullet : MonoBehaviour {
     public void OnCollisionEnter2D(Collision2D collision)
     {
         Instantiate(bounceSparks, transform.position, transform.rotation);
-        AudioSource bounceAudio = ((GameObject)Instantiate(bounceSound, transform.position, transform.rotation)).GetComponent<AudioSource>();
+        Instantiate(bounceSound, transform.position, transform.rotation);
     }
 }

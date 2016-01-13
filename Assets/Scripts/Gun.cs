@@ -3,20 +3,9 @@ using System.Collections;
 
 public class Gun : MonoBehaviour {
 
-    public static Gun instance;
-
     public GameObject bullet;
     public float boardWidth = 13f;
     public Color predictiveLineColor = Color.white;
-
-
-    // Use this for initialization
-    void Start () 
-    {
-        if (instance != null)
-            Destroy(instance);
-        instance = this;
-    }
     
     void FixedUpdate ()
     {
@@ -81,7 +70,7 @@ public class Gun : MonoBehaviour {
 
         for (int i = 0; i < 18; i++)
         {
-            newPosition = lastPosition + lastDirection * (Mathf.Abs((boardWidth - GameManager.instance.bulletSize) / (transform.up.x * 4)));
+            newPosition = lastPosition + lastDirection * (Mathf.Abs((boardWidth - (GameManager.instance.bulletSize / 2f)) / (transform.up.x * 4)));
             if (i % 4 == 1)
                 lastDirection.x = -lastDirection.x;
             if (i == 0)

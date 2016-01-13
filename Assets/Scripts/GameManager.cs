@@ -5,11 +5,6 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
-    public GameObject enemy;
-    public GameObject enemySpeeder;
-    public GameObject enemyBoss;
-    public int bossSpawnRate = 15;
-    public int speederSpawnRate = 5;
     public float maxHealth = 100;
     public float enemyEscapeDamage = 10f;
     public float fireRate = 1.0f;
@@ -20,10 +15,35 @@ public class GameManager : MonoBehaviour {
     public float bulletMass = 2f;
     public float bulletSize = 0.5f;
     public float bulletDuration = 3f;
-    public int initialEnemySpawn = 8;
-    public float averageSpawnPerSecond = 0.25f;
+    public float initialSpawnTimeWorth = 8;
+    public float levelSpawnWorth = 50;
+
+    public float outOfScreenY = 27f;
+    public float outOfScreenBonusThrustFactor = 5f;
+
+    public float levelIncreaseSpawnAmountFactor = 1.15f;
+    public float levelIncreaseSpawnRateFactor = 1.15f;
+
+    public float enemySpeedFactor = 1f;
+
+    public float enemySpawnRateFactor = 1f;
+
+    public GameObject enemyTank;
+    public float enemyTankSpawnRate =    0.200f;
+    public int enemyTankScoreValue = 1;
+
+    public GameObject enemyBoss;
+    public float enemyBossSpawnRate =    0.015f;
+    public int enemyBossScoreValue = 15;
+
+    public GameObject enemySpeeder;
+    public float enemySpeederSpawnRate = 0.050f;
+    public int enemySpeederScoreValue = 4;
+
     public AudioSource chargingAudio;
     public AudioSource fireAudio;
+
+    public int currentLevel { get; private set; }
 
     public float chargingStartTime { get; private set; }
     public bool isCharged { get; private set; }
@@ -33,9 +53,11 @@ public class GameManager : MonoBehaviour {
     public float health { get; private set; }
     public bool playing { get; private set; }
 
-    public int enemyCounter { get; private set; }
+    private int enemySpawnTotalValue = 0;
+    public int enemyAliveCounter {get; set;}
+    public bool levelCleared { get { return enemyAliveCounter == 0 && enemySpawnTotalValue >= levelSpawnWorth; } }
 
-    private int spawnCounter = 0;
+    private BonusManager bonusManager = new BonusManager();
 
     void Awake ()
     {
@@ -43,8 +65,13 @@ public class GameManager : MonoBehaviour {
             Destroy(instance);
         instance = this;
 
+        currentLevel = 1;
         StartGame();
+    }
 
+    void Destroy()
+    {
+        instance = null;
     }
 
     void StartGame()
@@ -54,28 +81,31 @@ public class GameManager : MonoBehaviour {
         energy = energyMax;
         isCharged = false;
         isCharging = false;
-        enemyCounter = 0;
+        enemySpawnTotalValue = 0;
+        enemyAliveCounter = 0;
 
-        for (int i = 0; i <= initialEnemySpawn; i++)
-        {
-            spawnCounter++;
-            Instantiate(enemy, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
-        }
+        // Instantly spawn X seconds worth of enemies
+        TrySpawnEnemies(Mathf.RoundToInt((1f / Time.deltaTime) * initialSpawnTimeWorth));
+    }
+
+    public void NextLevel()
+    {
+        levelSpawnWorth *= levelIncreaseSpawnAmountFactor;
+        enemySpawnRateFactor *= levelIncreaseSpawnRateFactor;
+        currentLevel++;
+        StartGame();
+    }
+
+    public void RestartGame()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     void FixedUpdate () {
-        if (Random.value <= (averageSpawnPerSecond * Time.deltaTime))
-        {
-            spawnCounter++;
-            if (spawnCounter % bossSpawnRate == 0)
-                Instantiate(enemyBoss, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
-            else if (spawnCounter % speederSpawnRate == 0)
-                Instantiate(enemySpeeder, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
-            else
-                Instantiate(enemy, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
-        }
 
-        if (health <= 0)
+        TrySpawnEnemies();
+
+        if (health <= 0 || levelCleared)
         {
             playing = false;
             isCharged = false;
@@ -86,6 +116,39 @@ public class GameManager : MonoBehaviour {
         energy = Mathf.Clamp(energy + (Time.deltaTime * energyRegen) - (isCharging ? ((Time.deltaTime / fireRate) * energyPerShot) : 0), 0f, energyMax);
     }
 
+    void TrySpawnEnemies(int times = 1)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            TrySpawnEnemy(enemyTank, enemyTankSpawnRate, enemyTankScoreValue);
+            TrySpawnEnemy(enemyBoss, enemyBossSpawnRate, enemyBossScoreValue);
+            TrySpawnEnemy(enemySpeeder, enemySpeederSpawnRate, enemySpeederScoreValue);
+        }
+    }
+
+    void TrySpawnEnemy(GameObject enemyObject, float spawnRate, int scoreValue)
+    {
+        if (enemySpawnTotalValue >= levelSpawnWorth)
+            return;
+        if (Random.value <= (spawnRate * Time.deltaTime * enemySpawnRateFactor))
+        {
+            enemyAliveCounter++;
+            enemySpawnTotalValue += scoreValue;
+            Instantiate(enemyObject, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
+        }
+    }
+
+    public Bonus[,] GetNewRandomBonusses()
+    {
+        Bonus[,] bonusOneTwo = bonusManager.GetRandomBonus(2, 1, 2, 3, 1);
+        Bonus[,] bonusTwoOne = bonusManager.GetRandomBonus(2, 2, 1, 2, 3);
+        Bonus[,] result = new Bonus[4, 3];
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 3; j++)
+                result[i, j] = (i < 2) ? bonusOneTwo[i, j] : bonusTwoOne[i - 2, j];
+        return result;
+    }
+
     void Update()
     {
         GunControl();
@@ -93,6 +156,8 @@ public class GameManager : MonoBehaviour {
 
     void GunControl()
     {
+        if (!playing)
+            return;
         if (!isCharging && !isCharged && energy >= energyPerShot && Input.GetButton("Fire1"))
         {
             isCharging = true;

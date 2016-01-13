@@ -23,6 +23,12 @@ public class EndGameUI : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        text.enabled = !GameManager.instance.playing;
+        if (GameManager.instance.playing)
+        {
+            text.enabled = false;
+            return;
+        }
+        text.enabled = true;
+        text.text = GameManager.instance.levelCleared ? "Level Cleared" : "Game Over";
     }
 }

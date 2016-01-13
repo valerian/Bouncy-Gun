@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-    public float thrust = 0.0001f;
+    public float thrust = 50f;
     public GameObject explosionParticles;
     public GameObject debrisParticles;
     public float startingHealth = 1f;
@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
     public GameObject explosionSoundEffect;
     public float collisionSoundInterval = 0.5f;
     public float collisionSparkInterval = 0.2f;
+    public float rotateSpeed = 0.02f;
 
     private float lastCollisionSound;
     private float lastCollisionSpark;
@@ -43,8 +44,34 @@ public class Enemy : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-        rb.AddForce(-transform.up * thrust);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), new Vector3(0, 1, 0)), 0.035f);
+        float wallAvoidAdjustX = Mathf.Clamp01(Mathf.Abs(transform.position.x) - 5.5f);
+        float turretAvoidAdjustX = Mathf.Clamp01(1.5f - Mathf.Abs(transform.position.x)) * Mathf.Clamp01(2f - (Mathf.Abs(transform.position.y) / 4f));
+
+        float directionFactor = Mathf.Pow(Mathf.Clamp01(Vector2.Dot(new Vector2(-transform.up.x, -transform.up.y), Vector2.down)), 2);
+        float thrustFactor = GameManager.instance.enemySpeedFactor * Time.deltaTime * directionFactor * (1f - wallAvoidAdjustX);
+        float rotateSpeedFactor = 1f;
+
+        if (transform.position.y > GameManager.instance.outOfScreenY)
+        {
+            thrustFactor *= GameManager.instance.outOfScreenBonusThrustFactor;
+            rotateSpeedFactor *= GameManager.instance.outOfScreenBonusThrustFactor;
+        }
+
+        rb.AddForce(-transform.up * thrust * thrustFactor);
+
+        if (transform.position.x < 0)
+        {
+            wallAvoidAdjustX *= -1;
+        }
+        else
+        {
+            turretAvoidAdjustX *= -1;
+        }
+
+        Vector3 direction = new Vector3(wallAvoidAdjustX + turretAvoidAdjustX, 1, 0).normalized;
+
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direction), rotateSpeed * rotateSpeedFactor);
         if (health <= 0)
             Destroy(gameObject);
     }
@@ -57,7 +84,7 @@ public class Enemy : MonoBehaviour {
             mass = Mathf.Min(rb.mass, collisionRigidBody.mass);
         float damage = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity)) * mass;
         if (collision.gameObject.tag == "Player")
-            damage /= 2;
+            damage *= 0.66f;
         BroadcastMessage("Damaged", damage / health, SendMessageOptions.DontRequireReceiver);
         health -= damage;
 
@@ -83,6 +110,8 @@ public class Enemy : MonoBehaviour {
         {
             return;
         }
+        GameManager.instance.enemyAliveCounter--;
+
         Instantiate(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
         Instantiate(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
         AudioSource explosionAudio = ((GameObject)Instantiate(explosionSoundEffect, transform.position + new Vector3(0f, 0f, 0f), transform.rotation)).GetComponent<AudioSource>();
