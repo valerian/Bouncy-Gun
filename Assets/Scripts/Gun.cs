@@ -28,7 +28,7 @@ public class Gun : MonoBehaviour {
     private void UpdateAimAndFire()
     {
         var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        var angle = Mathf.Atan2(screenPosition.y - Input.mousePosition.y, screenPosition.x - Input.mousePosition.x) * Mathf.Rad2Deg - 90;
+        var angle = Mathf.Atan2(screenPosition.y - Input.mousePosition.y, screenPosition.x - Input.mousePosition.x) * Mathf.Rad2Deg + 90;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
