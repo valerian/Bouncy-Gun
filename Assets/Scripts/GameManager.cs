@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour {
 
     public void RestartGame()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 
     void FixedUpdate () {
@@ -138,15 +138,9 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public Bonus[,] GetNewRandomBonusses()
+    public Bonus[] GetNewRandomBonusses()
     {
-        Bonus[,] bonusOneTwo = bonusManager.GetRandomBonus(2, 1, 2, 3, 1);
-        Bonus[,] bonusTwoOne = bonusManager.GetRandomBonus(2, 2, 1, 2, 3);
-        Bonus[,] result = new Bonus[4, 3];
-        for (int i = 0; i < 4; i++)
-            for (int j = 0; j < 3; j++)
-                result[i, j] = (i < 2) ? bonusOneTwo[i, j] : bonusTwoOne[i - 2, j];
-        return result;
+        return bonusManager.GetRandomBonus(2, 1, 2, 3);
     }
 
     void Update()
@@ -209,46 +203,43 @@ public class GameManager : MonoBehaviour {
         drawBars();
     }
 
+    private static Texture2D _lineTex = new Texture2D(1, 1);
     void drawBars()
     {
-        // Generate a single pixel texture if it doesn't exist
-        var lineTex = new Texture2D(1, 1);
-
         Color savedColor = GUI.color;
-
 
         Vector2 topLeft = Camera.main.WorldToScreenPoint(new Vector3(-7.5f, 20f, -0.5f));
         Vector2 bottomRight = Camera.main.WorldToScreenPoint(new Vector3(-6.4f, 0f, -0.5f));
 
         //Draw background
         GUI.color = new Color(0f, 0f, 0f);
-        GUI.DrawTexture(new Rect(topLeft.x, 0, bottomRight.x - topLeft.x, Screen.height), lineTex);
+        GUI.DrawTexture(new Rect(topLeft.x, 0, bottomRight.x - topLeft.x, Screen.height), _lineTex);
 
         //Draw energy bar
         GUI.color = energy > energyPerShot ? new Color(0.4f, 0.4f, 1f) : new Color(0.8f, 0.2f, 0.2f);
-        GUI.DrawTexture(new Rect(topLeft.x + ((bottomRight.x - topLeft.x) / 2f), Screen.height * (1f - (energy / energyMax)), (bottomRight.x - topLeft.x) / 2f, Screen.height * (energy / energyMax)), lineTex);
+        GUI.DrawTexture(new Rect(topLeft.x + ((bottomRight.x - topLeft.x) / 2f), Screen.height * (1f - (energy / energyMax)), (bottomRight.x - topLeft.x) / 2f, Screen.height * (energy / energyMax)), _lineTex);
 
         //Draw charge bar
         if (isCharged || isCharging)
         {
             GUI.color = new Color(1.0f, 0.8f, 0.0f);
-            GUI.DrawTexture(new Rect(topLeft.x, Screen.height * (1f - ((Time.time - chargingStartTime) / fireRate)), (bottomRight.x - topLeft.x) / 2f, Screen.height * ((Time.time - chargingStartTime) / fireRate)), lineTex);
+            GUI.DrawTexture(new Rect(topLeft.x, Screen.height * (1f - ((Time.time - chargingStartTime) / fireRate)), (bottomRight.x - topLeft.x) / 2f, Screen.height * ((Time.time - chargingStartTime) / fireRate)), _lineTex);
         }
 
         //Draw limit bar
         GUI.color = new Color(1f, 0f, 0f);
-        GUI.DrawTexture(new Rect(topLeft.x + ((bottomRight.x - topLeft.x) / 2f), Screen.height * (1f - (energyPerShot / energyMax)), (bottomRight.x - topLeft.x) / 2f, 3), lineTex);
+        GUI.DrawTexture(new Rect(topLeft.x + ((bottomRight.x - topLeft.x) / 2f), Screen.height * (1f - (energyPerShot / energyMax)), (bottomRight.x - topLeft.x) / 2f, 3), _lineTex);
 
         topLeft = Camera.main.WorldToScreenPoint(new Vector3(6.4f, 20f, -0.5f));
         bottomRight = Camera.main.WorldToScreenPoint(new Vector3(7.5f, 0f, -0.5f));
 
         //Draw background
         GUI.color = new Color(0f, 0f, 0f);
-        GUI.DrawTexture(new Rect(topLeft.x, 0, bottomRight.x - topLeft.x, Screen.height), lineTex);
+        GUI.DrawTexture(new Rect(topLeft.x, 0, bottomRight.x - topLeft.x, Screen.height), _lineTex);
 
         //Draw health bar
         GUI.color = new Color(1f, 0.2f, 0.2f);
-        GUI.DrawTexture(new Rect(topLeft.x, Screen.height * (1f - (GameManager.instance.health / GameManager.instance.maxHealth)), bottomRight.x - topLeft.x, Screen.height * (GameManager.instance.health / GameManager.instance.maxHealth)), lineTex);
+        GUI.DrawTexture(new Rect(topLeft.x, Screen.height * (1f - (GameManager.instance.health / GameManager.instance.maxHealth)), bottomRight.x - topLeft.x, Screen.height * (GameManager.instance.health / GameManager.instance.maxHealth)), _lineTex);
 
         // We're done.  Restore the GUI matrix and GUI color to whatever they were before.
         GUI.color = savedColor;

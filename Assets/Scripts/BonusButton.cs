@@ -21,8 +21,9 @@ public class BonusButton : MonoBehaviour {
         GameManager.instance.NextLevel();
     }
 
-    void SetBonusses(Bonus[] bonusses)
+    void GenerateBonusses()
     {
+        Bonus[] bonusses = GameManager.instance.GetNewRandomBonusses();
         bonus1 = bonusses[0];
         bonus2 = bonusses[1];
         bonus3 = bonusses[2];

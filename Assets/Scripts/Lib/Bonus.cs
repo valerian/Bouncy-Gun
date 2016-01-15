@@ -20,17 +20,14 @@ public class BonusManager
         bonusCollection.Add(new BonusVelocity());
     }
 
-    public Bonus[,] GetRandomBonus(int nbSets, int nbBonus, int nbMalus, int bonusValue, int malusValue)
+    public Bonus[] GetRandomBonus(int nbBonus, int nbMalus, int bonusValue, int malusValue)
     {
-        Bonus[,] bonusses = new Bonus[nbSets, (nbBonus + nbMalus)];
-        for (int i = 0; i < nbSets; i++)
+        Bonus[] bonusses = new Bonus[(nbBonus + nbMalus)];
+        ShuffleBonusCollection();
+        for (int i = 0; i < nbBonus + nbMalus; i++)
         {
-            ShuffleBonusCollection();
-            for (int j = 0; j < nbBonus + nbMalus; j++)
-            {
-                bonusses[i, j] = bonusCollection[j].Clone();
-                bonusses[i, j].value = (j < nbBonus) ? bonusValue : -malusValue;
-            }
+            bonusses[i] = bonusCollection[i].Clone();
+            bonusses[i].value = (i < nbBonus) ? bonusValue : -malusValue;
         }
         return bonusses;
     }

@@ -35,11 +35,10 @@ public class GUIManager : MonoBehaviour {
         {
             nextLevelUIActive = true;
             bonusPanel.SetActive(true);
-            Bonus[,] bonusses = GameManager.instance.GetNewRandomBonusses();
-            SendBonusses(0, bonusses, bonusButton1);
-            SendBonusses(1, bonusses, bonusButton2);
-            SendBonusses(2, bonusses, bonusButton3);
-            SendBonusses(3, bonusses, bonusButton4);
+            bonusButton1.SendMessage("GenerateBonusses");
+            bonusButton2.SendMessage("GenerateBonusses");
+            bonusButton3.SendMessage("GenerateBonusses");
+            bonusButton4.SendMessage("GenerateBonusses");
         }
 
         if (nextLevelUIActive && GameManager.instance.playing)
@@ -54,13 +53,5 @@ public class GUIManager : MonoBehaviour {
             gameOverUIActive = true;
             gameOverPanel.SetActive(true);
         }
-    }
-
-    private void SendBonusses(int index, Bonus[,] bonusses, Button target)
-    {
-        Bonus[] bonussesSubset = new Bonus[3];
-        for (int i = 0; i < 3; i++)
-            bonussesSubset[i] = bonusses[index, i];
-        target.SendMessage("SetBonusses", bonussesSubset);
     }
 }
