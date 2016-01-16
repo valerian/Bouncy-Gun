@@ -4,6 +4,10 @@ using System.Collections;
 
 public class GUIManager : MonoBehaviour {
 
+    public static GUIManager instance;
+
+    public Canvas canvas;
+
     public GameObject bonusPanel;
     public GameObject gameOverPanel;
     public Button bonusButton1;
@@ -23,10 +27,29 @@ public class GUIManager : MonoBehaviour {
     public GameObject chargePanel;
     public GameObject energyThreshold;
 
+    public GameObject damageText;
+
 
     private bool nextLevelUIActive = false;
     private bool gameOverUIActive = false;
-    
+
+    void Awake()
+    {
+        if (instance != null)
+            Destroy(instance);
+        instance = this;
+    }
+
+    void Destroy()
+    {
+        instance = null;
+    }
+
+    public void DamageText(Vector3 worldPosition, int damage, Color color)
+    {
+        SimplePool.Spawn(damageText, worldPosition, Quaternion.identity).GetComponent<TextMesh>().text = "- " + damage;
+    }
+
     void OnGUI()
     {
         levelText.text = "Level " + GameManager.instance.currentLevel;

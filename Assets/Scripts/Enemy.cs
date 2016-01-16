@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour {
     public float collisionSparkInterval = 0.2f;
     public float rotateSpeed = 0.02f;
     public int scoreValue;
+    public float damage;
 
     private float initialMass;
     private Vector3 initialScale;
@@ -164,5 +165,11 @@ public class Enemy : MonoBehaviour {
         var dir = (body.transform.position - explosionPosition);
         float wearoff = 1 - (dir.magnitude / explosionRadius);
         body.AddForce(dir.normalized * explosionForce * wearoff);
+    }
+
+    void EscapeDamage()
+    {
+        GameManager.instance.health -= damage * mutationMultiplicator;
+        GUIManager.instance.DamageText(transform.position, (int) (damage * mutationMultiplicator), Color.red);
     }
 }

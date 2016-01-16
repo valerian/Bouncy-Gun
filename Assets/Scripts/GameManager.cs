@@ -7,7 +7,6 @@ public struct EnemyDefinition
     public GameObject prefab;
     public float spawnRate;
     public int scoreValue;
-    public int damage;
 }
 
 public class GameManager : MonoBehaviour {
@@ -53,7 +52,7 @@ public class GameManager : MonoBehaviour {
     public bool isCharging { get; private set; }
 
     public float energy { get; private set; }
-    public float health { get; private set; }
+    public float health { get; set; }
     public bool playing { get; private set; }
 
     private int enemySpawnTotalValue = 0;
@@ -213,10 +212,5 @@ public class GameManager : MonoBehaviour {
             isCharged = false;
             isCharging = false;
         }
-    }
-
-    public void EnemyEscaped(GameObject enemy)
-    {
-        health -= enemyEscapeDamage;
     }
 }
