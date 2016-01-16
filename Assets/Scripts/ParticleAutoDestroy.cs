@@ -3,8 +3,13 @@ using System.Collections;
 
 public class ParticleAutoDestroy : MonoBehaviour {
 
-    // Use this for initialization
-    void Start () {
-        Destroy(gameObject, GetComponent<ParticleSystem>().startLifetime + GetComponent<ParticleSystem>().duration);
+    void OnEnable() 
+    {
+        Invoke("Despawn", GetComponent<ParticleSystem>().startLifetime + GetComponent<ParticleSystem>().duration);
+    }
+
+    void Despawn()
+    {
+        SimplePool.Despawn(gameObject);
     }
 }

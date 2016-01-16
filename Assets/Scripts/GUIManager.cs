@@ -16,6 +16,13 @@ public class GUIManager : MonoBehaviour {
     public Text energyText;
     public Text energyRegenText;
     public Text bulletCostText;
+    public Text gameOverScore;
+
+    public GameObject healthPanel;
+    public GameObject energyPanel;
+    public GameObject chargePanel;
+    public GameObject energyThreshold;
+
 
     private bool nextLevelUIActive = false;
     private bool gameOverUIActive = false;
@@ -31,6 +38,15 @@ public class GUIManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        energyThreshold.SendMessage("UpdatePosition", GameManager.instance.energyPerShot / GameManager.instance.energyMax);
+        healthPanel.SendMessage("UpdateFill", GameManager.instance.health / GameManager.instance.healthMax);
+        energyPanel.SendMessage("UpdateFill", GameManager.instance.energy / GameManager.instance.energyMax);
+        energyPanel.SendMessage("SpecialColor", GameManager.instance.energy < GameManager.instance.energyPerShot);
+        if (GameManager.instance.isCharged || GameManager.instance.isCharging)
+            energyThreshold.SendMessage("UpdateFill", ((Time.time - GameManager.instance.chargingStartTime) / GameManager.instance.fireRate));
+        else
+            energyThreshold.SendMessage("UpdateFill", 0f);
+
         if (!nextLevelUIActive && !GameManager.instance.playing && GameManager.instance.levelCleared)
         {
             nextLevelUIActive = true;
@@ -49,9 +65,9 @@ public class GUIManager : MonoBehaviour {
 
         if (!gameOverUIActive && !GameManager.instance.playing && !GameManager.instance.levelCleared)
         {
-            Debug.Log("GAME OVER");
             gameOverUIActive = true;
             gameOverPanel.SetActive(true);
+            gameOverScore.text = string.Format("{0:# ###0}", GameManager.instance.score);
         }
     }
 }

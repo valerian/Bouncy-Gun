@@ -3,10 +3,15 @@ using System.Collections;
 
 public class SoundAutoDestroy : MonoBehaviour
 {
-    // Use this for initialization
-    void Start()
+    void OnEnable() 
     {
         AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-        Destroy(gameObject, audioSource.clip.length * (1 / audioSource.pitch));
+        Invoke("Despawn", audioSource.clip.length * (1 / audioSource.pitch));
+    }
+
+    void Despawn()
+    {
+        SimplePool.Despawn(gameObject);
     }
 }
+

@@ -186,7 +186,7 @@ public class BonusHealth : BonusRatio
 
     public override void Apply()
     {
-        GameManager.instance.maxHealth *= GetMultiplicator();
+        GameManager.instance.healthMax *= GetMultiplicator();
     }
 }
 

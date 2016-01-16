@@ -1,11 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public struct EnemyDefinition
+{
+    public GameObject prefab;
+    public float spawnRate;
+    public int scoreValue;
+    public int damage;
+}
+
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
-    public float maxHealth = 100;
+    public float skipToLevel = 0;
+
+    public float healthMax = 100;
     public float enemyEscapeDamage = 10f;
     public float fireRate = 1.0f;
     public float energyMax = 100f;
@@ -20,25 +31,17 @@ public class GameManager : MonoBehaviour {
 
     public float outOfScreenY = 27f;
     public float outOfScreenBonusThrustFactor = 5f;
+    public float outOfScreenBonusRotateFactor = 10f;
 
     public float levelIncreaseSpawnAmountFactor = 1.15f;
     public float levelIncreaseSpawnRateFactor = 1.15f;
+    public float levelIncreaseMutateChanceFactor = 0.10f;
 
     public float enemySpeedFactor = 1f;
 
     public float enemySpawnRateFactor = 1f;
 
-    public GameObject enemyTank;
-    public float enemyTankSpawnRate =    0.200f;
-    public int enemyTankScoreValue = 1;
-
-    public GameObject enemyBoss;
-    public float enemyBossSpawnRate =    0.015f;
-    public int enemyBossScoreValue = 15;
-
-    public GameObject enemySpeeder;
-    public float enemySpeederSpawnRate = 0.050f;
-    public int enemySpeederScoreValue = 4;
+    public EnemyDefinition[] enemies;
 
     public AudioSource chargingAudio;
     public AudioSource fireAudio;
@@ -54,8 +57,11 @@ public class GameManager : MonoBehaviour {
     public bool playing { get; private set; }
 
     private int enemySpawnTotalValue = 0;
+    private float mutationRate = 0f;
     public int enemyAliveCounter {get; set;}
     public bool levelCleared { get { return enemyAliveCounter == 0 && enemySpawnTotalValue >= levelSpawnWorth; } }
+
+    public long score { get; set; }
 
     private BonusManager bonusManager = new BonusManager();
 
@@ -66,6 +72,7 @@ public class GameManager : MonoBehaviour {
         instance = this;
 
         currentLevel = 1;
+        score = 0;
         StartGame();
     }
 
@@ -76,13 +83,24 @@ public class GameManager : MonoBehaviour {
 
     void StartGame()
     {
-        health = maxHealth;
+        // Clean memory
+        System.GC.Collect();
+        Resources.UnloadUnusedAssets();
+
+        health = healthMax;
         playing = true;
         energy = energyMax;
         isCharged = false;
         isCharging = false;
         enemySpawnTotalValue = 0;
         enemyAliveCounter = 0;
+
+        if (skipToLevel > 0)
+        {
+            skipToLevel--;
+            enemySpawnTotalValue = (int) levelSpawnWorth + 1;
+            return;
+        }
 
         // Instantly spawn X seconds worth of enemies
         TrySpawnEnemies(Mathf.RoundToInt((1f / Time.deltaTime) * initialSpawnTimeWorth));
@@ -92,6 +110,7 @@ public class GameManager : MonoBehaviour {
     {
         levelSpawnWorth *= levelIncreaseSpawnAmountFactor;
         enemySpawnRateFactor *= levelIncreaseSpawnRateFactor;
+        mutationRate += levelIncreaseMutateChanceFactor;
         currentLevel++;
         StartGame();
     }
@@ -102,9 +121,6 @@ public class GameManager : MonoBehaviour {
     }
 
     void FixedUpdate () {
-
-        TrySpawnEnemies();
-
         if (health <= 0 || levelCleared)
         {
             playing = false;
@@ -113,6 +129,8 @@ public class GameManager : MonoBehaviour {
             chargingAudio.Stop();
         }
 
+        TrySpawnEnemies();
+
         energy = Mathf.Clamp(energy + (Time.deltaTime * energyRegen) - (isCharging ? ((Time.deltaTime / fireRate) * energyPerShot) : 0), 0f, energyMax);
     }
 
@@ -120,9 +138,8 @@ public class GameManager : MonoBehaviour {
     {
         for (int i = 0; i < times; i++)
         {
-            TrySpawnEnemy(enemyTank, enemyTankSpawnRate, enemyTankScoreValue);
-            TrySpawnEnemy(enemyBoss, enemyBossSpawnRate, enemyBossScoreValue);
-            TrySpawnEnemy(enemySpeeder, enemySpeederSpawnRate, enemySpeederScoreValue);
+            for (int n = 0; n < enemies.Length; n++)
+                TrySpawnEnemy(enemies[n].prefab, enemies[n].spawnRate, enemies[n].scoreValue);
         }
     }
 
@@ -132,9 +149,14 @@ public class GameManager : MonoBehaviour {
             return;
         if (Random.value <= (spawnRate * Time.deltaTime * enemySpawnRateFactor))
         {
+            int mutationLevel = 1;
+            while (mutationRate - mutationLevel > 0f)
+                mutationLevel++;
+            if (Random.value < mutationRate + 1f - mutationLevel)
+                mutationLevel++;
             enemyAliveCounter++;
-            enemySpawnTotalValue += scoreValue;
-            Instantiate(enemyObject, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity);
+            enemySpawnTotalValue += scoreValue * (int) (Mathf.Pow(2, mutationLevel) / 2f);
+            SimplePool.Spawn(enemyObject, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity).SendMessage("Mutate", mutationLevel);
         }
     }
 
@@ -196,52 +218,5 @@ public class GameManager : MonoBehaviour {
     public void EnemyEscaped(GameObject enemy)
     {
         health -= enemyEscapeDamage;
-    }
-
-    void OnGUI()
-    {
-        drawBars();
-    }
-
-    private static Texture2D _lineTex = new Texture2D(1, 1);
-    void drawBars()
-    {
-        Color savedColor = GUI.color;
-
-        Vector2 topLeft = Camera.main.WorldToScreenPoint(new Vector3(-7.5f, 20f, -0.5f));
-        Vector2 bottomRight = Camera.main.WorldToScreenPoint(new Vector3(-6.4f, 0f, -0.5f));
-
-        //Draw background
-        GUI.color = new Color(0f, 0f, 0f);
-        GUI.DrawTexture(new Rect(topLeft.x, 0, bottomRight.x - topLeft.x, Screen.height), _lineTex);
-
-        //Draw energy bar
-        GUI.color = energy > energyPerShot ? new Color(0.4f, 0.4f, 1f) : new Color(0.8f, 0.2f, 0.2f);
-        GUI.DrawTexture(new Rect(topLeft.x + ((bottomRight.x - topLeft.x) / 2f), Screen.height * (1f - (energy / energyMax)), (bottomRight.x - topLeft.x) / 2f, Screen.height * (energy / energyMax)), _lineTex);
-
-        //Draw charge bar
-        if (isCharged || isCharging)
-        {
-            GUI.color = new Color(1.0f, 0.8f, 0.0f);
-            GUI.DrawTexture(new Rect(topLeft.x, Screen.height * (1f - ((Time.time - chargingStartTime) / fireRate)), (bottomRight.x - topLeft.x) / 2f, Screen.height * ((Time.time - chargingStartTime) / fireRate)), _lineTex);
-        }
-
-        //Draw limit bar
-        GUI.color = new Color(1f, 0f, 0f);
-        GUI.DrawTexture(new Rect(topLeft.x + ((bottomRight.x - topLeft.x) / 2f), Screen.height * (1f - (energyPerShot / energyMax)), (bottomRight.x - topLeft.x) / 2f, 3), _lineTex);
-
-        topLeft = Camera.main.WorldToScreenPoint(new Vector3(6.4f, 20f, -0.5f));
-        bottomRight = Camera.main.WorldToScreenPoint(new Vector3(7.5f, 0f, -0.5f));
-
-        //Draw background
-        GUI.color = new Color(0f, 0f, 0f);
-        GUI.DrawTexture(new Rect(topLeft.x, 0, bottomRight.x - topLeft.x, Screen.height), _lineTex);
-
-        //Draw health bar
-        GUI.color = new Color(1f, 0.2f, 0.2f);
-        GUI.DrawTexture(new Rect(topLeft.x, Screen.height * (1f - (GameManager.instance.health / GameManager.instance.maxHealth)), bottomRight.x - topLeft.x, Screen.height * (GameManager.instance.health / GameManager.instance.maxHealth)), _lineTex);
-
-        // We're done.  Restore the GUI matrix and GUI color to whatever they were before.
-        GUI.color = savedColor;
     }
 }

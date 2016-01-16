@@ -15,6 +15,13 @@ public class Enemy : MonoBehaviour {
     public float collisionSoundInterval = 0.5f;
     public float collisionSparkInterval = 0.2f;
     public float rotateSpeed = 0.02f;
+    public int scoreValue;
+
+    private float initialMass;
+    private Vector3 initialScale;
+
+    private float mutation = 1f;
+    private float mutationMultiplicator { get { return Mathf.Pow(2, mutation) / 2f; } }
 
     private float lastCollisionSound;
     private float lastCollisionSpark;
@@ -32,29 +39,51 @@ public class Enemy : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
-        health = startingHealth;
+        initialMass = rb.mass;
+        initialScale = transform.localScale;
+    }
+
+    void OnEnable()
+    {
+        health = startingHealth * mutationMultiplicator;
         lastCollisionSound = Time.time;
         lastCollisionSpark = Time.time;
+    }
+
+    void Mutate(float mutation)
+    {
+        this.mutation = mutation;
+        rb.mass = initialMass * mutationMultiplicator;
+        health = startingHealth * mutationMultiplicator;
+        float mutationScaleFactor = 1f + (mutation * 0.16f);
+        transform.localScale = new Vector3(initialScale.x * mutationScaleFactor, initialScale.y * mutationScaleFactor, initialScale.z);
+        BroadcastMessage("MutateColor", mutation, SendMessageOptions.DontRequireReceiver);
     }
     
     // Update is called once per frame
     void FixedUpdate () {
         if (GameManager.instance.playing == false)
         {
-            Destroy(gameObject);
+            SimplePool.Despawn(gameObject);
             return;
         }
+
+        // Unstuck out of game
+        if (Mathf.Abs(transform.position.x) > 6.8f)
+            transform.position = new Vector3((Random.value * 6f) - 3f, transform.position.y + 1f, transform.position.z);
+
+
         float wallAvoidAdjustX = Mathf.Clamp01(Mathf.Abs(transform.position.x) - 5.5f);
-        float turretAvoidAdjustX = Mathf.Clamp01(1.5f - Mathf.Abs(transform.position.x)) * Mathf.Clamp01(2f - (Mathf.Abs(transform.position.y) / 4f));
+        float turretAvoidAdjustX = Mathf.Clamp01(1.8f - Mathf.Abs(transform.position.x)) * Mathf.Clamp01(2f - (Mathf.Abs(transform.position.y) / 4f));
 
         float directionFactor = Mathf.Pow(Mathf.Clamp01(Vector2.Dot(new Vector2(-transform.up.x, -transform.up.y), Vector2.down)), 2);
-        float thrustFactor = GameManager.instance.enemySpeedFactor * Time.deltaTime * directionFactor * (1f - wallAvoidAdjustX);
+        float thrustFactor = GameManager.instance.enemySpeedFactor * Time.deltaTime * directionFactor * (1f - wallAvoidAdjustX) * mutationMultiplicator;
         float rotateSpeedFactor = 1f;
 
         if (transform.position.y > GameManager.instance.outOfScreenY)
         {
             thrustFactor *= GameManager.instance.outOfScreenBonusThrustFactor;
-            rotateSpeedFactor *= GameManager.instance.outOfScreenBonusThrustFactor;
+            rotateSpeedFactor *= GameManager.instance.outOfScreenBonusRotateFactor;
         }
 
         rb.AddForce(-transform.up * thrust * thrustFactor);
@@ -73,7 +102,7 @@ public class Enemy : MonoBehaviour {
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direction), rotateSpeed * rotateSpeedFactor);
         if (health <= 0)
-            Destroy(gameObject);
+            SimplePool.Despawn(gameObject);
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -85,36 +114,37 @@ public class Enemy : MonoBehaviour {
         float damage = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity)) * mass;
         if (collision.gameObject.tag == "Player")
             damage *= 0.66f;
-        BroadcastMessage("Damaged", damage / health, SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("HealthChanged", health / (startingHealth * mutationMultiplicator), SendMessageOptions.DontRequireReceiver);
         health -= damage;
 
         if (lastCollisionSpark + collisionSparkInterval < Time.time)
         {
             lastCollisionSpark = Time.time;
-            Instantiate(bounceSparks, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation);
+            SimplePool.Spawn(bounceSparks, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation);
         }
 
         if (lastCollisionSound + collisionSparkInterval < Time.time)
         {
             lastCollisionSound = Time.time;
-            AudioSource bounceAudio = ((GameObject)Instantiate(bounceSoundEffect, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation)).GetComponent<AudioSource>();
+            AudioSource bounceAudio = (SimplePool.Spawn(bounceSoundEffect, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation)).GetComponent<AudioSource>();
             bounceAudio.pitch = Random.Range(0.5f, 1.2f);
             bounceAudio.volume = Mathf.Min(1.0f, damage / 30f);
             bounceAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
         }
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         if (GameManager.instance.playing == false)
         {
             return;
         }
         GameManager.instance.enemyAliveCounter--;
+        GameManager.instance.score += (int) (scoreValue * mutationMultiplicator);
 
-        Instantiate(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
-        Instantiate(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
-        AudioSource explosionAudio = ((GameObject)Instantiate(explosionSoundEffect, transform.position + new Vector3(0f, 0f, 0f), transform.rotation)).GetComponent<AudioSource>();
+        SimplePool.Spawn(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
+        SimplePool.Spawn(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
+        AudioSource explosionAudio = (SimplePool.Spawn(explosionSoundEffect, transform.position + new Vector3(0f, 0f, 0f), transform.rotation)).GetComponent<AudioSource>();
         explosionAudio.pitch = Random.Range(1.0f, 1.5f);
         explosionAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
 

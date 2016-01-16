@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour {
     public GameObject bounceSound;
 
     private float creationTime;
+    private float initialLightIntensity;
+    private Color initialMaterialColor;
 
     private Rigidbody2D _rb = null;
     private Rigidbody2D rb
@@ -22,7 +24,15 @@ public class Bullet : MonoBehaviour {
     // Use this for initialization
     void Awake () 
     {
+        initialLightIntensity = GetComponent<Light>().intensity;
+        initialMaterialColor = GetComponent<Renderer>().material.GetColor("_TintColor");
+    }
+
+    void OnEnable ()
+    {
         creationTime = Time.time;
+        GetComponent<Light>().intensity = initialLightIntensity;
+        GetComponent<Renderer>().material.SetColor("_TintColor", initialMaterialColor);
     }
     
     void Update ()
@@ -35,11 +45,11 @@ public class Bullet : MonoBehaviour {
     {
         if (GameManager.instance.playing == false)
         {
-            Destroy(gameObject);
+            SimplePool.Despawn(gameObject);
             return;
         }
         if ((Time.time - creationTime) > GameManager.instance.bulletDuration)
-            Destroy(gameObject);
+            SimplePool.Despawn(gameObject);
     }
 
     public void Launch(Vector3 direction, float initialVelocity)
@@ -49,7 +59,7 @@ public class Bullet : MonoBehaviour {
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        Instantiate(bounceSparks, transform.position, transform.rotation);
-        Instantiate(bounceSound, transform.position, transform.rotation);
+        SimplePool.Spawn(bounceSparks, transform.position, transform.rotation);
+        SimplePool.Spawn(bounceSound, transform.position, transform.rotation);
     }
 }
