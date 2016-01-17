@@ -8,16 +8,11 @@ public class DamageText : MonoBehaviour {
 
     private float startTime;
 
+    #region private TextMesh textMesh
     private TextMesh _textMesh;
-    private TextMesh textMesh
-    {
-        get
-        {
-            if (_textMesh == null)
-                _textMesh = GetComponent<TextMesh>();
-            return _textMesh;
-        }
-    }
+    private TextMesh textMesh { get { return _textMesh ?? (_textMesh = GetComponent<TextMesh>()); } }
+    #endregion
+    
 
     void OnEnable()
     {

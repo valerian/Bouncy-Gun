@@ -6,64 +6,83 @@ public struct EnemyDefinition
 {
     public GameObject prefab;
     public float spawnRate;
-    public int scoreValue;
+    public int spawnWorth;
 }
 
 public class GameManager : MonoBehaviour {
-
+    // Managers instances
     public static GameManager instance;
+    [HideInInspector]
+    public BonusManager bonusManager = new BonusManager();
 
+    // Public variables
+    [Header("Special/Debug")]
     public float skipToLevel = 0;
 
+    [Header("Current Level")]
+    public int currentLevel = 0;
+    [Space]
     public float healthMax = 100;
-    public float enemyEscapeDamage = 10f;
-    public float fireRate = 1.0f;
     public float energyMax = 100f;
     public float energyRegen = 5f;
     public float energyPerShot = 25f;
+    [Space]
+    public float fireRate = 1.0f;
     public float bulletVelocity = 2000f;
     public float bulletMass = 2f;
     public float bulletSize = 0.5f;
     public float bulletDuration = 3f;
-    public float initialSpawnTimeWorth = 8;
+    [Space]
     public float levelSpawnWorth = 50;
+    [Space]
+    public float mutationRate = 0f;
 
-    public float outOfScreenY = 27f;
-    public float outOfScreenBonusThrustFactor = 5f;
+    [Header("Game")]
+    public float initialSpawnTimeWorth = 8;
+    [Space]
+    public float outOfScreenY = 26f;
+    public float outOfScreenBonusThrustFactor = 4f;
     public float outOfScreenBonusRotateFactor = 10f;
-
+    [Space]
+    public float outOfScreenFarY = 33f;
+    public float outOfScreenFarBonusThrustFactor = 12f;
+    public float outOfScreenFarBonusRotateFactor = 20f;
+    [Space]
     public float levelIncreaseSpawnAmountFactor = 1.15f;
     public float levelIncreaseSpawnRateFactor = 1.15f;
     public float levelIncreaseMutateChanceFactor = 0.10f;
 
+    [Header("Enemies")]
     public float enemySpeedFactor = 1f;
-
     public float enemySpawnRateFactor = 1f;
-
+    [Space]
     public EnemyDefinition[] enemies;
 
+    [Header("Audio")]
     public AudioSource chargingAudio;
     public AudioSource fireAudio;
 
-    public int currentLevel { get; private set; }
+    // Player values
+    public float energy { get; private set; }
+    public float health { get; set; }
+    public long score { get; set; }
 
+    // Gun handling
     public float chargingStartTime { get; private set; }
     public bool isCharged { get; private set; }
     public bool isCharging { get; private set; }
-
-    public float energy { get; private set; }
-    public float health { get; set; }
+    
+    // Level status
+    public bool levelCleared { get { return enemyAliveCounter == 0 && enemySpawnTotalValue >= levelSpawnWorth; } }
     public bool playing { get; private set; }
 
+    // Level monitoring
+    public int enemyAliveCounter { get; set; }    
     private int enemySpawnTotalValue = 0;
-    private float mutationRate = 0f;
-    public int enemyAliveCounter {get; set;}
-    public bool levelCleared { get { return enemyAliveCounter == 0 && enemySpawnTotalValue >= levelSpawnWorth; } }
+    
+    
 
-    public long score { get; set; }
-
-    private BonusManager bonusManager = new BonusManager();
-
+    
     void Awake ()
     {
         if (instance != null)
@@ -138,7 +157,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < times; i++)
         {
             for (int n = 0; n < enemies.Length; n++)
-                TrySpawnEnemy(enemies[n].prefab, enemies[n].spawnRate, enemies[n].scoreValue);
+                TrySpawnEnemy(enemies[n].prefab, enemies[n].spawnRate, enemies[n].spawnWorth);
         }
     }
 
@@ -157,11 +176,6 @@ public class GameManager : MonoBehaviour {
             enemySpawnTotalValue += scoreValue * (int) (Mathf.Pow(2, mutationLevel) / 2f);
             SimplePool.Spawn(enemyObject, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity).SendMessage("Mutate", mutationLevel);
         }
-    }
-
-    public Bonus[] GetNewRandomBonusses()
-    {
-        return bonusManager.GetRandomBonus(2, 1, 2, 3);
     }
 
     void Update()

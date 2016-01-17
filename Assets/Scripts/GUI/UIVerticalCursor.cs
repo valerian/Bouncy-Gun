@@ -4,16 +4,10 @@ using System.Collections;
 public class UIVerticalCursor : MonoBehaviour {
     private float initialPosition;
 
+    #region private RectTransform rectTransform
     private RectTransform _rectTransform;
-    private RectTransform rectTransform
-    {
-        get
-        {
-            if (_rectTransform == null)
-                _rectTransform = GetComponent<RectTransform>();
-            return _rectTransform;
-        }
-    }
+    private RectTransform rectTransform { get { return _rectTransform ?? (_rectTransform = GetComponent<RectTransform>()); } }
+    #endregion
 
     void Awake()
     {

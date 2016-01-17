@@ -9,27 +9,16 @@ public class UIVerticalBar : MonoBehaviour {
     private float initialPosition;
     private float initialHeight;
 
+    #region private RectTransform rectTransform
     private RectTransform _rectTransform;
-    private RectTransform rectTransform
-    {
-        get
-        {
-            if (_rectTransform == null)
-                _rectTransform = GetComponent<RectTransform>();
-            return _rectTransform;
-        }
-    }
+    private RectTransform rectTransform { get { return _rectTransform ?? (_rectTransform = GetComponent<RectTransform>()); } }
+    #endregion
 
+    #region private UnityEngine.UI.Image image
     private UnityEngine.UI.Image _image;
-    private UnityEngine.UI.Image image
-    {
-        get
-        {
-            if (_image == null)
-                _image = GetComponent<UnityEngine.UI.Image>();
-            return _image;
-        }
-    }
+    private UnityEngine.UI.Image image { get { return _image ?? (_image = GetComponent<UnityEngine.UI.Image>()); } }
+    #endregion
+    
 
     void Awake()
     {

@@ -7,7 +7,7 @@ public class DeadZone : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.SendMessage("EscapeDamage");
+            collision.gameObject.SendMessage("Escaped");
         }
         SimplePool.Despawn(collision.gameObject);
     }

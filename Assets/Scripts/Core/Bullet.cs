@@ -10,16 +10,11 @@ public class Bullet : MonoBehaviour {
     private float initialLightIntensity;
     private Color initialMaterialColor;
 
-    private Rigidbody2D _rb = null;
-    private Rigidbody2D rb
-    {
-        get
-        {
-            if (_rb == null)
-                _rb = GetComponent<Rigidbody2D>();
-            return _rb;
-        }
-    }
+    #region private Rigidbody2D rigidBody
+    private Rigidbody2D _rigidBody;
+    private Rigidbody2D rigidBody { get { return _rigidBody ?? (_rigidBody = GetComponent<Rigidbody2D>()); } }
+    #endregion
+
 
     // Use this for initialization
     void Awake () 
@@ -54,7 +49,7 @@ public class Bullet : MonoBehaviour {
 
     public void Launch(Vector3 direction, float initialVelocity)
     {
-        rb.AddForce(new Vector2(direction.x, direction.y) * initialVelocity);
+        rigidBody.AddForce(new Vector2(direction.x, direction.y) * initialVelocity);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

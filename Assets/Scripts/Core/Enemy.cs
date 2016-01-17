@@ -3,54 +3,53 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-    public float thrust = 50f;
-    public GameObject explosionParticles;
-    public GameObject debrisParticles;
+    [Header("Core")]
     public float startingHealth = 1f;
-    public float explostionRadius = 2.0F;
-    public float explostionPower = 100.0F;
-    public GameObject bounceSparks;
-    public GameObject bounceSoundEffect;
-    public GameObject explosionSoundEffect;
-    public float collisionSoundInterval = 0.5f;
-    public float collisionSparkInterval = 0.2f;
-    public float rotateSpeed = 0.02f;
     public int scoreValue;
     public float damage;
+    public float thrust = 50f;
+    public float rotateSpeed = 0.02f;
+    public float collisionAvoidanceDistance = 1.8f;
 
+    [Header("Death Explosion")]
+    public float explostionRadius = 2.0F;
+    public float explostionPower = 100.0F;
+    public GameObject explosionParticles;
+    public GameObject debrisParticles;
+    public GameObject explosionSoundEffect;
+
+    [Header("Collision")]
+    public float collisionSoundInterval = 0.5f;
+    public float collisionSparkInterval = 0.2f; 
+    public GameObject bounceSparks;
+    public GameObject bounceSoundEffect;
+
+    // Initial physical values
     private float initialMass;
     private Vector3 initialScale;
 
+    // Mutation
     private float mutation = 1f;
     private float mutationMultiplicator { get { return Mathf.Pow(2, mutation) / 2f; } }
 
     private float lastCollisionSound;
     private float lastCollisionSpark;
     private float health;
-    private Rigidbody2D _rb = null;
-    private Rigidbody2D rb
-    {
-        get
-        {
-            if (_rb == null)
-                _rb = GetComponent<Rigidbody2D>();
-            return _rb;
-        }
-    }
-    private CircleCollider2D _circleCollider = null;
-    private CircleCollider2D circleCollider
-    {
-        get
-        {
-            if (_circleCollider == null)
-                _circleCollider = GetComponent<CircleCollider2D>();
-            return _circleCollider;
-        }
-    }
+
+    #region private Rigidbody2D rigidBody
+    private Rigidbody2D _rigidBody;
+    private Rigidbody2D rigidBody { get { return _rigidBody ?? (_rigidBody = GetComponent<Rigidbody2D>()); } }
+    #endregion
+
+    #region private CircleCollider2D circleCollider
+    private CircleCollider2D _circleCollider;
+    private CircleCollider2D circleCollider { get { return _circleCollider ?? (_circleCollider = GetComponent<CircleCollider2D>()); } }
+    #endregion
+    
 
     // Use this for initialization
     void Awake () {
-        initialMass = rb.mass;
+        initialMass = rigidBody.mass;
         initialScale = transform.localScale;
     }
 
@@ -64,91 +63,100 @@ public class Enemy : MonoBehaviour {
     void Mutate(float mutation)
     {
         this.mutation = mutation;
-        rb.mass = initialMass * mutationMultiplicator;
+        rigidBody.mass = initialMass * mutationMultiplicator;
         health = startingHealth * mutationMultiplicator;
         float mutationScaleFactor = 1f + ((mutation - 1f) * 0.16f);
         transform.localScale = new Vector3(initialScale.x * mutationScaleFactor, initialScale.y * mutationScaleFactor, initialScale.z);
         BroadcastMessage("MutateColor", mutation, SendMessageOptions.DontRequireReceiver);
     }
     
-    // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate () 
+    {
         if (GameManager.instance.playing == false)
         {
             SimplePool.Despawn(gameObject);
             return;
         }
 
-        // Unstuck out of game
-        if (Mathf.Abs(transform.position.x) > 6.8f)
-            transform.position = new Vector3((Random.value * 6f) - 3f, transform.position.y + 1f, transform.position.z);
-
+        if (health <= 0)
+        {
+            SimplePool.Despawn(gameObject);
+            return;
+        }
 
         float wallAvoidAdjustX = Mathf.Clamp01(Mathf.Abs(transform.position.x) - 5.5f);
+        if (transform.position.x < 0)
+            wallAvoidAdjustX *= -1;
+
         float turretAvoidAdjustX = Mathf.Clamp01(1.8f - Mathf.Abs(transform.position.x)) * Mathf.Clamp01(2f - (Mathf.Abs(transform.position.y) / 4f));
+        if (transform.position.x > 0)
+            turretAvoidAdjustX *= -1;
 
         float directionFactor = Mathf.Pow(Mathf.Clamp01(Vector2.Dot(new Vector2(-transform.up.x, -transform.up.y), Vector2.down)), 2);
         float thrustFactor = GameManager.instance.enemySpeedFactor * Time.deltaTime * directionFactor * (1f - wallAvoidAdjustX) * mutationMultiplicator;
         float thrustFactorUndirected = GameManager.instance.enemySpeedFactor * Time.deltaTime * mutationMultiplicator;
         float rotateSpeedFactor = 1f;
 
-        if (transform.position.y > GameManager.instance.outOfScreenY)
+        if (transform.position.y > GameManager.instance.outOfScreenFarY)
+        {
+            thrustFactor *= GameManager.instance.outOfScreenFarBonusThrustFactor;
+            rotateSpeedFactor *= GameManager.instance.outOfScreenFarBonusRotateFactor;
+        }
+        else if (transform.position.y > GameManager.instance.outOfScreenY)
         {
             thrustFactor *= GameManager.instance.outOfScreenBonusThrustFactor;
             rotateSpeedFactor *= GameManager.instance.outOfScreenBonusRotateFactor;
         }
 
-        RaycastHit2D hitCenter = Physics2D.Raycast(transform.position + (-transform.up * (circleCollider.bounds.size.x / 1.9f)), -transform.up);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position + (((transform.right * 2) - transform.up).normalized * (circleCollider.bounds.size.x / 1.9f)), -transform.up);
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + ((-(transform.right * 2) - transform.up).normalized * (circleCollider.bounds.size.x / 1.9f)), -transform.up);
-        
-        //GameObject obstacle = hitLeft.collider != null ? hitLeft.collider.gameObject : hitRight.collider != null ? hitRight.collider.gameObject : null;
+        if (NeedBraking())
+            rigidBody.AddForce(transform.up * thrust * thrustFactorUndirected);
+        else
+            rigidBody.AddForce(-transform.up * thrust * thrustFactor);
+
+        Vector3 direction = new Vector3(wallAvoidAdjustX + turretAvoidAdjustX, 1, 0).normalized;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direction), rotateSpeed * rotateSpeedFactor);
+    }
+
+    void Unstuck()
+    {
+        if (Mathf.Abs(transform.position.x) > 6.8f)
+            transform.position = new Vector3((Random.value * 6f) - 3f, transform.position.y + 1f, transform.position.z);
+    }
+
+    bool NeedBraking()
+    {
         GameObject obstacle = null;
+
+        RaycastHit2D hitCenter = Physics2D.Raycast(transform.position + (-transform.up * (circleCollider.bounds.size.x / 1.9f)), -transform.up, collisionAvoidanceDistance);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position + (((transform.right * 2) - transform.up).normalized * (circleCollider.bounds.size.x / 1.9f)), -transform.up, collisionAvoidanceDistance);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + ((-(transform.right * 2) - transform.up).normalized * (circleCollider.bounds.size.x / 1.9f)), -transform.up, collisionAvoidanceDistance);
+        
         if (hitCenter.collider != null)
             obstacle = hitCenter.collider.gameObject;
-        if (obstacle == null && hitLeft.collider != null
-            && Vector3.Distance(obstacle.transform.position, transform.position) > Vector3.Distance(hitLeft.collider.gameObject.transform.position, transform.position))
+        else if (hitLeft.collider != null)
             obstacle = hitLeft.collider.gameObject;
-        if (obstacle == null && hitRight.collider != null
-            && Vector3.Distance(obstacle.transform.position, transform.position) > Vector3.Distance(hitRight.collider.gameObject.transform.position, transform.position))
+        else if (hitRight.collider != null)
             obstacle = hitRight.collider.gameObject;
 
         if (obstacle != null
-            && Vector3.Distance(obstacle.transform.position, transform.position) < 1.8f
+            && Vector3.Distance(obstacle.transform.position, transform.position) < collisionAvoidanceDistance
             && obstacle.gameObject.GetComponent<Rigidbody2D>() != null
-            && -transform.InverseTransformDirection(rb.velocity).y - -transform.InverseTransformDirection(obstacle.gameObject.GetComponent<Rigidbody2D>().velocity * 0.9f).y > 0)
-        {
-            rb.AddForce(transform.up * thrust * thrustFactorUndirected);
-        }
-        else
-            rb.AddForce(-transform.up * thrust * thrustFactor);
-
-        if (transform.position.x < 0)
-        {
-            wallAvoidAdjustX *= -1;
-        }
-        else
-        {
-            turretAvoidAdjustX *= -1;
-        }
-
-        Vector3 direction = new Vector3(wallAvoidAdjustX + turretAvoidAdjustX, 1, 0).normalized;
-
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(0, 0, 1), direction), rotateSpeed * rotateSpeedFactor);
-        if (health <= 0)
-            SimplePool.Despawn(gameObject);
+            && -transform.InverseTransformDirection(rigidBody.velocity).y - -transform.InverseTransformDirection(obstacle.gameObject.GetComponent<Rigidbody2D>().velocity * 0.9f).y > 0)
+            return true;
+        return false;
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        float mass = rb.mass;
+        float mass = rigidBody.mass;
         Rigidbody2D collisionRigidBody = collision.gameObject.GetComponent<Rigidbody2D>();
+
         if (collisionRigidBody != null)
-            mass = Mathf.Min(rb.mass, collisionRigidBody.mass);
-        float damage = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity)) * mass;
+            mass = Mathf.Min(rigidBody.mass, collisionRigidBody.mass);
+        float damage = (0.15f + 0.85f * Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity))) * mass;
         if (collision.gameObject.tag == "Player")
             damage *= 0.66f;
+
         BroadcastMessage("HealthChanged", health / (startingHealth * mutationMultiplicator), SendMessageOptions.DontRequireReceiver);
         health -= damage;
 
@@ -162,9 +170,9 @@ public class Enemy : MonoBehaviour {
         {
             lastCollisionSound = Time.time;
             AudioSource bounceAudio = (SimplePool.Spawn(bounceSoundEffect, new Vector3(collision.contacts[0].point.x, collision.contacts[0].point.y, transform.position.z), transform.rotation)).GetComponent<AudioSource>();
-            bounceAudio.pitch = Random.Range(0.5f, 1.2f);
-            bounceAudio.volume = Mathf.Min(1.0f, damage / 30f);
-            bounceAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
+            bounceAudio.pitch = Random.Range(0.5f, 1.5f);
+            bounceAudio.volume = Mathf.Min(0.8f, damage / (rigidBody.mass * 4f));
+            bounceAudio.PlayDelayed(Random.Range(0.0f, 0.08f));
         }
     }
 
@@ -201,9 +209,10 @@ public class Enemy : MonoBehaviour {
         body.AddForce(dir.normalized * explosionForce * wearoff);
     }
 
-    void EscapeDamage()
+    void Escaped()
     {
         GameManager.instance.health -= damage * mutationMultiplicator;
         GUIManager.instance.DamageText(transform.position, (int) (damage * mutationMultiplicator), Color.red);
+        GameManager.instance.score -= (int)(scoreValue * mutationMultiplicator);
     }
 }

@@ -6,20 +6,16 @@ public class DarkenOnDamaged : MonoBehaviour {
     private Color originalColor;
     private Color mutatedColor;
     private float mutation;
-    private Renderer _mr = null;
-    private Renderer mr
-    {
-        get
-        {
-            if (_mr == null)
-                _mr = GetComponent<Renderer>();
-            return _mr;
-        }
-    }
+
+    #region private Renderer rendererComponent
+    private Renderer _rendererComponent;
+    private Renderer rendererComponent { get { return _rendererComponent ?? (_rendererComponent = GetComponent<Renderer>()); } }
+    #endregion
+    
 
     public void Awake()
     {
-        originalColor = mr.material.color;
+        originalColor = rendererComponent.material.color;
     }
 
     public void OnEnable()
@@ -37,11 +33,11 @@ public class DarkenOnDamaged : MonoBehaviour {
         while (color.h < 0f)
             color.h += 1f;
         mutatedColor = color.ToColor();
-        mr.material.color = mutatedColor;
+        rendererComponent.material.color = mutatedColor;
     }
 
     public void HealthChanged(float percent)
     {
-        mr.material.color = mutatedColor * percent;
+        rendererComponent.material.color = mutatedColor * percent;
     }
 }
