@@ -66,9 +66,9 @@ public class GUIManager : MonoBehaviour {
         energyPanel.SendMessage("UpdateFill", GameManager.instance.energy / GameManager.instance.energyMax);
         energyPanel.SendMessage("SpecialColor", GameManager.instance.energy < GameManager.instance.energyPerShot);
         if (GameManager.instance.isCharged || GameManager.instance.isCharging)
-            energyThreshold.SendMessage("UpdateFill", ((Time.time - GameManager.instance.chargingStartTime) / GameManager.instance.fireRate));
+            chargePanel.SendMessage("UpdateFill", ((Time.time - GameManager.instance.chargingStartTime) / GameManager.instance.fireRate));
         else
-            energyThreshold.SendMessage("UpdateFill", 0f);
+            chargePanel.SendMessage("UpdateFill", 0f);
 
         if (!nextLevelUIActive && !GameManager.instance.playing && GameManager.instance.levelCleared)
         {

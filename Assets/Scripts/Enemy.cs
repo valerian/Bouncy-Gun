@@ -37,6 +37,16 @@ public class Enemy : MonoBehaviour {
             return _rb;
         }
     }
+    private CircleCollider2D _circleCollider = null;
+    private CircleCollider2D circleCollider
+    {
+        get
+        {
+            if (_circleCollider == null)
+                _circleCollider = GetComponent<CircleCollider2D>();
+            return _circleCollider;
+        }
+    }
 
     // Use this for initialization
     void Awake () {
@@ -56,7 +66,7 @@ public class Enemy : MonoBehaviour {
         this.mutation = mutation;
         rb.mass = initialMass * mutationMultiplicator;
         health = startingHealth * mutationMultiplicator;
-        float mutationScaleFactor = 1f + (mutation * 0.16f);
+        float mutationScaleFactor = 1f + ((mutation - 1f) * 0.16f);
         transform.localScale = new Vector3(initialScale.x * mutationScaleFactor, initialScale.y * mutationScaleFactor, initialScale.z);
         BroadcastMessage("MutateColor", mutation, SendMessageOptions.DontRequireReceiver);
     }
@@ -79,6 +89,7 @@ public class Enemy : MonoBehaviour {
 
         float directionFactor = Mathf.Pow(Mathf.Clamp01(Vector2.Dot(new Vector2(-transform.up.x, -transform.up.y), Vector2.down)), 2);
         float thrustFactor = GameManager.instance.enemySpeedFactor * Time.deltaTime * directionFactor * (1f - wallAvoidAdjustX) * mutationMultiplicator;
+        float thrustFactorUndirected = GameManager.instance.enemySpeedFactor * Time.deltaTime * mutationMultiplicator;
         float rotateSpeedFactor = 1f;
 
         if (transform.position.y > GameManager.instance.outOfScreenY)
@@ -87,7 +98,30 @@ public class Enemy : MonoBehaviour {
             rotateSpeedFactor *= GameManager.instance.outOfScreenBonusRotateFactor;
         }
 
-        rb.AddForce(-transform.up * thrust * thrustFactor);
+        RaycastHit2D hitCenter = Physics2D.Raycast(transform.position + (-transform.up * (circleCollider.bounds.size.x / 1.9f)), -transform.up);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position + (((transform.right * 2) - transform.up).normalized * (circleCollider.bounds.size.x / 1.9f)), -transform.up);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + ((-(transform.right * 2) - transform.up).normalized * (circleCollider.bounds.size.x / 1.9f)), -transform.up);
+        
+        //GameObject obstacle = hitLeft.collider != null ? hitLeft.collider.gameObject : hitRight.collider != null ? hitRight.collider.gameObject : null;
+        GameObject obstacle = null;
+        if (hitCenter.collider != null)
+            obstacle = hitCenter.collider.gameObject;
+        if (obstacle == null && hitLeft.collider != null
+            && Vector3.Distance(obstacle.transform.position, transform.position) > Vector3.Distance(hitLeft.collider.gameObject.transform.position, transform.position))
+            obstacle = hitLeft.collider.gameObject;
+        if (obstacle == null && hitRight.collider != null
+            && Vector3.Distance(obstacle.transform.position, transform.position) > Vector3.Distance(hitRight.collider.gameObject.transform.position, transform.position))
+            obstacle = hitRight.collider.gameObject;
+
+        if (obstacle != null
+            && Vector3.Distance(obstacle.transform.position, transform.position) < 1.8f
+            && obstacle.gameObject.GetComponent<Rigidbody2D>() != null
+            && -transform.InverseTransformDirection(rb.velocity).y - -transform.InverseTransformDirection(obstacle.gameObject.GetComponent<Rigidbody2D>().velocity * 0.9f).y > 0)
+        {
+            rb.AddForce(transform.up * thrust * thrustFactorUndirected);
+        }
+        else
+            rb.AddForce(-transform.up * thrust * thrustFactor);
 
         if (transform.position.x < 0)
         {
