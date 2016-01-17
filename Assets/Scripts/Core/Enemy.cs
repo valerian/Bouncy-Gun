@@ -212,7 +212,7 @@ public class Enemy : MonoBehaviour {
     void Escaped()
     {
         GameManager.instance.health -= damage * mutationMultiplicator;
-        GUIManager.instance.DamageText(transform.position, (int) (damage * mutationMultiplicator), Color.red);
+        GUIManager.instance.DamageText(transform.position + new Vector3(0f, 1f, 0f), (int) (damage * mutationMultiplicator), Color.red);
         GameManager.instance.score -= (int)(scoreValue * mutationMultiplicator);
     }
 }

@@ -68,7 +68,7 @@ public class Gun : MonoBehaviour {
         Vector3 lastPosition = new Vector3(0f, 0f, 0.3f);
         Vector3 lastDirection = transform.up;
 
-        int lineThickness = Mathf.RoundToInt(Screen.width / 200f);
+        int lineThickness = Mathf.RoundToInt(Screen.height / 150f);
 
         if (Vector3.Dot(lastDirection, new Vector3(0, 1, 0)) >= 0.999f)
             Drawing.DrawLine(

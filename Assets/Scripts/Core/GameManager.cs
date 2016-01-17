@@ -204,10 +204,10 @@ public class GameManager : MonoBehaviour {
 
         if (isCharged)
         {
-            if (chargingAudio.time >= fireRate * 1.2f)
-                chargingAudio.pitch = -1.2f;
-            if (chargingAudio.time <= fireRate * 1.0f)
-                chargingAudio.pitch = 1.2f;
+            if (chargingAudio.time / Mathf.Abs(chargingAudio.pitch) >= fireRate + 0.1f)
+                chargingAudio.pitch = -Mathf.Abs(chargingAudio.pitch);
+            if (chargingAudio.time / Mathf.Abs(chargingAudio.pitch) <= Mathf.Max(fireRate - 0.1f, 0f))
+                chargingAudio.pitch = Mathf.Abs(chargingAudio.pitch);
         }
 
         if ((isCharging || isCharged) && Input.GetButtonUp("Fire1"))
@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour {
             fireAudio.pitch = 1.3f - (powerRatio * powerRatio * 0.6f);
             fireAudio.volume = 0.066f + (powerRatio * powerRatio * 0.2f);
             chargingAudio.Stop();
-            chargingAudio.pitch = 1f;
+            chargingAudio.pitch = Mathf.Abs(chargingAudio.pitch);
             isCharged = false;
             isCharging = false;
         }
