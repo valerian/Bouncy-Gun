@@ -153,7 +153,7 @@ public class Enemy : MonoBehaviour {
 
         if (collisionRigidBody != null)
             mass = Mathf.Min(rigidBody.mass, collisionRigidBody.mass);
-        float damage = (0.15f + 0.85f * Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity))) * mass;
+        float damage = Mathf.Abs(Vector2.Dot(collision.contacts[0].normal, collision.relativeVelocity)) * mass;
         if (collision.gameObject.tag == "Player")
             damage *= 0.66f;
 
