@@ -9,6 +9,13 @@ public abstract class BonusRatio : Bonus
         get { return value * step; }
     }
 
+    // resets step to 0.01!!
+    public void percentModeSet(float percent)
+    {
+        step = 0.01f;
+        value = (int) (percent * 100f);
+    }
+
     public override string GetDescriptionText()
     {
         return verboseName;

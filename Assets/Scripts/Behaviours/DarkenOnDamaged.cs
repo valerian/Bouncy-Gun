@@ -5,7 +5,6 @@ public class DarkenOnDamaged : MonoBehaviour {
 
     private Color originalColor;
     private Color mutatedColor;
-    private float mutation;
 
     #region private Renderer rendererComponent
     private Renderer _rendererComponent;
@@ -25,7 +24,6 @@ public class DarkenOnDamaged : MonoBehaviour {
 
     public void MutateColor(float mutation)
     {
-        this.mutation = mutation;
         HSBColor color = HSBColor.FromColor(originalColor);
         color.h += (mutation - 1f) * 0.15f;
         while (color.h > 1f)

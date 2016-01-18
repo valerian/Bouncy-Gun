@@ -23,7 +23,7 @@ public class BonusButton : MonoBehaviour {
 
     void GenerateBonusses()
     {
-        Bonus[] bonusses = GameManager.instance.bonusManager.GetRandomBonus(2, 1, 2, 3);
+        Bonus[] bonusses = GameManager.instance.bonusManager.GetRandomUpgrade(2, 1, 2, 3);
         bonus1 = bonusses[0];
         bonus2 = bonusses[1];
         bonus3 = bonusses[2];

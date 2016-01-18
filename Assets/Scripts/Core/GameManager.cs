@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     // Managers instances
     public static GameManager instance;
     [HideInInspector]
-    public BonusManager bonusManager = new BonusManager();
+    public UpgradeFactory bonusManager = new UpgradeFactory();
 
     // Public variables
     [Header("Special/Debug")]
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour {
                 mutationLevel++;
             enemyAliveCounter++;
             enemySpawnTotalValue += scoreValue * (int) (Mathf.Pow(2, mutationLevel) / 2f);
-            SimplePool.Spawn(enemyObject, new Vector3((Random.value * 6f) - 3f, 27f, 0.35f), Quaternion.identity).SendMessage("Mutate", mutationLevel);
+            SimplePool.Spawn(enemyObject, new Vector3((Random.value * 9f) - 4.5f, 27f, 0.35f), Quaternion.identity).SendMessage("Mutate", mutationLevel);
         }
     }
 
