@@ -185,8 +185,10 @@ public class Enemy : MonoBehaviour {
         GameManager.instance.enemyAliveCounter--;
         GameManager.instance.score += (int) (scoreValue * mutationMultiplicator);
 
-        SimplePool.Spawn(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
-        SimplePool.Spawn(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
+        if (explosionParticles != null)
+            SimplePool.Spawn(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
+        if (debrisParticles != null)
+            SimplePool.Spawn(debrisParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
         AudioSource explosionAudio = (SimplePool.Spawn(explosionSoundEffect, transform.position + new Vector3(0f, 0f, 0f), transform.rotation)).GetComponent<AudioSource>();
         explosionAudio.pitch = Random.Range(1.0f, 1.5f);
         explosionAudio.PlayDelayed(Random.Range(0.0f, 0.15f));
