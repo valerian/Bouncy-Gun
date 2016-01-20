@@ -14,7 +14,7 @@ public class UIVerticalCursor : MonoBehaviour {
         initialPosition = rectTransform.anchoredPosition.y;
     }
 
-    void UpdatePosition(float percent)
+    public void UpdatePosition(float percent)
     {
         percent = Mathf.Clamp01(percent);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, initialPosition * percent);

@@ -7,7 +7,7 @@ public class BonusDisplay : MonoBehaviour {
     public GameObject DescriptionText;
     public GameObject ValueText;
     
-    void DisplayBonus(Bonus bonus)
+    public void DisplayBonus(Bonus bonus)
     {
         DescriptionText.GetComponent<Text>().text = bonus.GetDescriptionText();
         ValueText.GetComponent<Text>().text = bonus.GetValueText();

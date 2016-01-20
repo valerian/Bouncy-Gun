@@ -5,13 +5,13 @@ using System.Collections;
 public class BonusButton : MonoBehaviour {
 
     private Bonus bonus1;
-    public GameObject bonusDisplay1;
+    public BonusDisplay bonusDisplay1;
 
     private Bonus bonus2;
-    public GameObject bonusDisplay2;
+    public BonusDisplay bonusDisplay2;
 
     private Bonus bonus3;
-    public GameObject bonusDisplay3;
+    public BonusDisplay bonusDisplay3;
 
     public void ApplyBonussesAndLoadNextLevel()
     {
@@ -21,14 +21,14 @@ public class BonusButton : MonoBehaviour {
         GameManager.instance.NextLevel();
     }
 
-    void GenerateBonusses()
+    public void GenerateBonusses()
     {
         Bonus[] bonusses = GameManager.instance.bonusManager.GetRandomUpgrade(2, 1, 2, 3);
         bonus1 = bonusses[0];
         bonus2 = bonusses[1];
         bonus3 = bonusses[2];
-        bonusDisplay1.SendMessage("DisplayBonus", bonus1);
-        bonusDisplay2.SendMessage("DisplayBonus", bonus2);
-        bonusDisplay3.SendMessage("DisplayBonus", bonus3);
+        bonusDisplay1.DisplayBonus(bonus1);
+        bonusDisplay2.DisplayBonus(bonus2);
+        bonusDisplay3.DisplayBonus(bonus3);
     }
 }

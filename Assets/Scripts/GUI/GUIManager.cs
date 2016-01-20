@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class GUIManager : MonoBehaviour {
 
@@ -10,10 +11,7 @@ public class GUIManager : MonoBehaviour {
 
     public GameObject bonusPanel;
     public GameObject gameOverPanel;
-    public Button bonusButton1;
-    public Button bonusButton2;
-    public Button bonusButton3;
-    public Button bonusButton4;
+    public BonusButton[] bonusButtons;
 
     public Text levelText;
     public Text healthText;
@@ -22,10 +20,10 @@ public class GUIManager : MonoBehaviour {
     public Text bulletCostText;
     public Text gameOverScore;
 
-    public GameObject healthPanel;
-    public GameObject energyPanel;
-    public GameObject chargePanel;
-    public GameObject energyThreshold;
+    public UIVerticalBar healthPanel;
+    public UIVerticalBar energyPanel;
+    public UIVerticalBar chargePanel;
+    public UIVerticalCursor energyThreshold;
 
     public GameObject damageText;
 
@@ -61,23 +59,21 @@ public class GUIManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        energyThreshold.SendMessage("UpdatePosition", GameManager.instance.energyPerShot / GameManager.instance.energyMax);
-        healthPanel.SendMessage("UpdateFill", GameManager.instance.health / GameManager.instance.healthMax);
-        energyPanel.SendMessage("UpdateFill", GameManager.instance.energy / GameManager.instance.energyMax);
-        energyPanel.SendMessage("SpecialColor", GameManager.instance.energy < GameManager.instance.energyPerShot);
+        healthPanel.UpdateFill(GameManager.instance.health / GameManager.instance.healthMax);
+        energyPanel.UpdateFill(GameManager.instance.energy / GameManager.instance.energyMax);
+        energyPanel.SpecialColor(GameManager.instance.energy < GameManager.instance.energyPerShot);
+        energyThreshold.UpdatePosition(GameManager.instance.energyPerShot / GameManager.instance.energyMax);
+
         if (GameManager.instance.isCharged || GameManager.instance.isCharging)
-            chargePanel.SendMessage("UpdateFill", ((Time.time - GameManager.instance.chargingStartTime) / GameManager.instance.fireRate));
+            chargePanel.UpdateFill((Time.time - GameManager.instance.chargingStartTime) / GameManager.instance.fireRate);
         else
-            chargePanel.SendMessage("UpdateFill", 0f);
+            chargePanel.UpdateFill(0f);
 
         if (!nextLevelUIActive && !GameManager.instance.playing && GameManager.instance.levelCleared)
         {
             nextLevelUIActive = true;
             bonusPanel.SetActive(true);
-            bonusButton1.SendMessage("GenerateBonusses");
-            bonusButton2.SendMessage("GenerateBonusses");
-            bonusButton3.SendMessage("GenerateBonusses");
-            bonusButton4.SendMessage("GenerateBonusses");
+            Array.ForEach(bonusButtons, b => b.GenerateBonusses());
         }
 
         if (nextLevelUIActive && GameManager.instance.playing)

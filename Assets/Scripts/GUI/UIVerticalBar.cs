@@ -27,14 +27,14 @@ public class UIVerticalBar : MonoBehaviour {
         initialColor = image.color;
     }
 
-    void UpdateFill(float percent)
+    public void UpdateFill(float percent)
     {
         percent = Mathf.Clamp01(percent);
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, initialHeight * percent);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, initialPosition - ((initialHeight * (1f - percent)) / 2f));
     }
 
-    void SpecialColor(bool active)
+    public void SpecialColor(bool active)
     {
         image.color = active ? specialColor : initialColor;
     }
