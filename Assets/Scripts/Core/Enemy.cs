@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour {
 
         if (health <= 0)
         {
+            Debug.Log("Despawn from " + gameObject.name);
             SimplePool.Despawn(gameObject);
             return;
         }
@@ -157,8 +158,8 @@ public class Enemy : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
             damage *= 0.66f;
 
-        BroadcastMessage("HealthChanged", health / (startingHealth * mutationMultiplicator), SendMessageOptions.DontRequireReceiver);
         health -= damage;
+        BroadcastMessage("HealthChanged", health / (startingHealth * mutationMultiplicator), SendMessageOptions.DontRequireReceiver);
 
         if (lastCollisionSpark + collisionSparkInterval < Time.time)
         {
