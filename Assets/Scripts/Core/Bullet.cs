@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour {
 
     void FixedUpdate () 
     {
-        if (GameManager.instance.playing == false)
+        if (GameManager.instance.isPlaying == false)
         {
             SimplePool.Despawn(gameObject);
             return;

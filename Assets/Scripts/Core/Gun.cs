@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour {
     
     void FixedUpdate ()
     {
-        if (GameManager.instance.playing == false)
+        if (GameManager.instance.isPlaying == false)
         {
             return;
         }
@@ -17,7 +17,7 @@ public class Gun : MonoBehaviour {
 
     void Update()
     {
-        if (GameManager.instance.playing == false)
+        if (GameManager.instance.isPlaying == false)
         {
             transform.rotation = Quaternion.identity;
             return;
@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour {
 
     void Fired(float velocity)
     {
-        GameObject instance = SimplePool.Spawn(bullet, transform.position + (transform.up * (0.5f + (GameManager.instance.bulletSize / 2.8f))) + new Vector3(0, 0, -0.2f), transform.rotation);
+        GameObject instance = SimplePool.Spawn(bullet, transform.position + (transform.up * (0.5f + (GameManager.instance.bulletSize / 2.8f))) + new Vector3(0, 0, -0.2f), Quaternion.identity);
         instance.transform.localScale = instance.transform.localScale.normalized * GameManager.instance.bulletSize;
         instance.GetComponent<Rigidbody2D>().mass = GameManager.instance.bulletMass;
         instance.GetComponent<Bullet>().Launch(transform.up, velocity);
@@ -57,7 +57,7 @@ public class Gun : MonoBehaviour {
 
     void drawPredictionLine()
     {
-        if (GameManager.instance.playing == false)
+        if (GameManager.instance.isPlaying == false)
         {
             return;
         }

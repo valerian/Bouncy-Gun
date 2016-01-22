@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour {
     
     void FixedUpdate () 
     {
-        if (GameManager.instance.playing == false)
+        if (GameManager.instance.isPlaying == false)
         {
             SimplePool.Despawn(gameObject);
             return;
@@ -178,7 +178,7 @@ public class Enemy : MonoBehaviour {
 
     void OnDisable()
     {
-        if (GameManager.instance.playing == false || GameManager.instance.isApplicationQuitting)
+        if (GameManager.instance.isPlaying == false || GameManager.instance.isApplicationQuitting)
         {
             return;
         }

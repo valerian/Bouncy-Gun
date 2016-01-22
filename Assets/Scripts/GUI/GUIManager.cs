@@ -69,20 +69,20 @@ public class GUIManager : MonoBehaviour {
         else
             chargePanel.UpdateFill(0f);
 
-        if (!nextLevelUIActive && !GameManager.instance.playing && GameManager.instance.levelCleared)
+        if (!nextLevelUIActive && !GameManager.instance.isPlaying && GameManager.instance.isLevelCleared)
         {
             nextLevelUIActive = true;
             bonusPanel.SetActive(true);
             Array.ForEach(bonusButtons, b => b.GenerateBonusses());
         }
 
-        if (nextLevelUIActive && GameManager.instance.playing)
+        if (nextLevelUIActive && GameManager.instance.isPlaying)
         {
             nextLevelUIActive = false;
             bonusPanel.SetActive(false);
         }
 
-        if (!gameOverUIActive && !GameManager.instance.playing && !GameManager.instance.levelCleared)
+        if (!gameOverUIActive && !GameManager.instance.isPlaying && !GameManager.instance.isLevelCleared)
         {
             gameOverUIActive = true;
             gameOverPanel.SetActive(true);

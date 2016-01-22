@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
     public AudioSource fireAudio;
 
     [Header("Global references")]
-    public GameObject camera;
+    public GameObject gameCamera;
 
     // Player values
     public float energy { get; private set; }
@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour {
     public bool isCharging { get; private set; }
     
     // Level status
-    public bool levelCleared { get { return enemyAliveCounter == 0 && enemySpawnTotalValue >= levelSpawnWorth; } }
-    public bool playing { get; private set; }
+    public bool isLevelCleared { get { return enemyAliveCounter == 0 && enemySpawnTotalValue >= levelSpawnWorth; } }
+    public bool isPlaying { get; private set; }
 
     // Level monitoring
     public int enemyAliveCounter { get; set; }    
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour {
         Resources.UnloadUnusedAssets();
 
         health = healthMax;
-        playing = true;
+        isPlaying = true;
         energy = energyMax;
         isCharged = false;
         isCharging = false;
@@ -147,9 +147,9 @@ public class GameManager : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        if (health <= 0 || levelCleared)
+        if (health <= 0 || isLevelCleared)
         {
-            playing = false;
+            isPlaying = false;
             isCharged = false;
             isCharging = false;
             chargingAudio.Stop();
@@ -182,13 +182,13 @@ public class GameManager : MonoBehaviour {
                 mutationLevel++;
             enemyAliveCounter++;
             enemySpawnTotalValue += scoreValue * (int) (Mathf.Pow(2, mutationLevel) / 2f);
-            SimplePool.Spawn(enemyObject, new Vector3((Random.value * 9f) - 4.5f, 27f, 0.35f), Quaternion.identity).SendMessage("Mutate", mutationLevel);
+            SimplePool.Spawn(enemyObject, new Vector3(Random.Range(-4.5f, 4.5f), 27f, 0.35f), Quaternion.identity).SendMessage("Mutate", mutationLevel);
         }
     }
 
     public void ShakeCamera()
     {
-        iTween.ShakePosition(camera, new Vector3(cameraShakingRadius, cameraShakingRadius, 0f), cameraShakingTime);
+        iTween.ShakePosition(gameCamera, new Vector3(cameraShakingRadius, cameraShakingRadius, 0f), cameraShakingTime);
     }
 
     void Update()
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour {
 
     void GunControl()
     {
-        if (!playing)
+        if (!isPlaying)
             return;
         if (!isCharging && !isCharged && energy >= energyPerShot && Input.GetButton("Fire1"))
         {
