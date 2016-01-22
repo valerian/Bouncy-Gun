@@ -201,7 +201,9 @@ public class Enemy : MonoBehaviour {
 
             if (rb != null && rb.gameObject.tag != "Player")
                 AddExplosionForce(rb, explostionPower, explosionPos, explostionRadius);
-        } 
+        }
+
+        GameManager.instance.ShakeCamera();
     }
 
     void AddExplosionForce(Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius)

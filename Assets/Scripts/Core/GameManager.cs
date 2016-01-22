@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour {
     public float levelIncreaseSpawnAmountFactor = 1.15f;
     public float levelIncreaseSpawnRateFactor = 1.15f;
     public float levelIncreaseMutateChanceFactor = 0.10f;
+    [Space]
+    public float cameraShakingTime = 0.5f;
+    public float cameraShakingRadius = 1f;
 
     [Header("Enemies")]
     public float enemySpeedFactor = 1f;
@@ -61,6 +64,9 @@ public class GameManager : MonoBehaviour {
     [Header("Audio")]
     public AudioSource chargingAudio;
     public AudioSource fireAudio;
+
+    [Header("Global references")]
+    public GameObject camera;
 
     // Player values
     public float energy { get; private set; }
@@ -79,9 +85,6 @@ public class GameManager : MonoBehaviour {
     // Level monitoring
     public int enemyAliveCounter { get; set; }    
     private int enemySpawnTotalValue = 0;
-    
-    
-
     
     void Awake ()
     {
@@ -176,6 +179,11 @@ public class GameManager : MonoBehaviour {
             enemySpawnTotalValue += scoreValue * (int) (Mathf.Pow(2, mutationLevel) / 2f);
             SimplePool.Spawn(enemyObject, new Vector3((Random.value * 9f) - 4.5f, 27f, 0.35f), Quaternion.identity).SendMessage("Mutate", mutationLevel);
         }
+    }
+
+    public void ShakeCamera()
+    {
+        iTween.ShakePosition(camera, new Vector3(cameraShakingRadius, cameraShakingRadius, 0f), cameraShakingTime);
     }
 
     void Update()
