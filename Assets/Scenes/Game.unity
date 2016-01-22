@@ -198,6 +198,7 @@ MonoBehaviour:
   bullet: {fileID: 159854, guid: e045210162a444c428de77750d71d362, type: 2}
   boardWidth: 13
   predictiveLineColor: {r: 0, g: 0, b: 0, a: 0.2509804}
+  ballisticPlaneZ: 0.35
 --- !u!1 &23703969
 GameObject:
   m_ObjectHideFlags: 0
@@ -8843,7 +8844,7 @@ ParticleSystemRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2073829444}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
@@ -10490,7 +10491,7 @@ MonoBehaviour:
   energyPerShot: 18
   fireRate: 1
   bulletVelocity: 1500
-  bulletMass: 1
+  bulletMass: 2
   bulletSize: 0.8
   bulletDuration: 2
   levelSpawnWorth: 30

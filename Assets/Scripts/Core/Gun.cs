@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour {
     public GameObject bullet;
     public float boardWidth = 13f;
     public Color predictiveLineColor = Color.white;
+    public float ballisticPlaneZ = 0.35f;
     
     void FixedUpdate ()
     {
@@ -27,24 +28,18 @@ public class Gun : MonoBehaviour {
 
     private void UpdateAimAndFire()
     {
-        var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        var angle = Mathf.Atan2(screenPosition.y - Input.mousePosition.y, screenPosition.x - Input.mousePosition.x) * Mathf.Rad2Deg + 90;
+        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+        float translationFactor = (ballisticPlaneZ - worldMousePosition.z) / Camera.main.transform.forward.z;
+        worldMousePosition += translationFactor * Camera.main.transform.forward;
+        var angle = Mathf.Atan2(transform.position.x - worldMousePosition.y, transform.position.y - worldMousePosition.x) * Mathf.Rad2Deg + 90;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
-
-    void Charging()
-    {
-
-    }
-
-    void Charged()
-    {
-
     }
 
     void Fired(float velocity)
     {
-        GameObject instance = SimplePool.Spawn(bullet, transform.position + (transform.up * (0.5f + (GameManager.instance.bulletSize / 2.8f))) + new Vector3(0, 0, -0.2f), Quaternion.identity);
+        Vector3 bulletPosition = transform.position + (transform.up * (0.5f + (GameManager.instance.bulletSize / 2.8f)));
+        bulletPosition.z = 0.35f;
+        GameObject instance = SimplePool.Spawn(bullet,  bulletPosition, Quaternion.identity);
         instance.transform.localScale = instance.transform.localScale.normalized * GameManager.instance.bulletSize;
         instance.GetComponent<Rigidbody2D>().mass = GameManager.instance.bulletMass;
         instance.GetComponent<Bullet>().Launch(transform.up, velocity);
@@ -65,7 +60,7 @@ public class Gun : MonoBehaviour {
             return;
 
         Vector3 newPosition;
-        Vector3 lastPosition = new Vector3(0f, 0f, 0.3f);
+        Vector3 lastPosition = new Vector3(0f, 0f, ballisticPlaneZ);
         Vector3 lastDirection = transform.up;
 
         int lineThickness = Mathf.RoundToInt(Screen.height / 150f);
