@@ -178,7 +178,7 @@ public class Enemy : MonoBehaviour {
 
     void OnDisable()
     {
-        if (GameManager.instance.playing == false)
+        if (GameManager.instance.playing == false || GameManager.instance.isApplicationQuitting)
         {
             return;
         }

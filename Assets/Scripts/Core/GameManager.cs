@@ -85,12 +85,17 @@ public class GameManager : MonoBehaviour {
     // Level monitoring
     public int enemyAliveCounter { get; set; }    
     private int enemySpawnTotalValue = 0;
+
+    // Application monitoring
+    public bool isApplicationQuitting { get; private set; }
     
     void Awake ()
     {
         if (instance != null)
             Destroy(instance);
         instance = this;
+
+        isApplicationQuitting = false;
 
         currentLevel = 1;
         score = 0;
@@ -234,5 +239,10 @@ public class GameManager : MonoBehaviour {
             isCharged = false;
             isCharging = false;
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        isApplicationQuitting = true;
     }
 }
