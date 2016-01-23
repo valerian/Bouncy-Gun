@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class DamageText : MonoBehaviour {
+public class FadingText : MonoBehaviour {
 
     public float timeToLive;
     public float finalVerticalOffset;

@@ -172,6 +172,9 @@ public class GameManager : MonoBehaviour {
         levelSpawnWorth = data.Value.levelSpawnWorth;
         mutationRate    = data.Value.mutationRate;
 
+        GUIManager.instance.GameStatusText("Game Loaded");
+        skipToLevel = 0;
+
         return true;
     }
 
@@ -194,6 +197,7 @@ public class GameManager : MonoBehaviour {
         data.mutationRate    = mutationRate;
 
         DataManager.gameData.Save(data);
+        GUIManager.instance.GameStatusText("Game Saved");
     }
 
     void FixedUpdate () {

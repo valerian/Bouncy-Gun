@@ -34,6 +34,7 @@ public class GUIManager : MonoBehaviour {
     public UIVerticalCursor energyThreshold;
 
     public GameObject damageText;
+    public GameObject gameSavedText;
 
 
     private bool nextLevelUIActive = false;
@@ -56,15 +57,20 @@ public class GUIManager : MonoBehaviour {
         SimplePool.Spawn(damageText, worldPosition, Quaternion.identity).GetComponent<TextMesh>().text = "- " + damage;
     }
 
+    public void GameStatusText(string status)
+    {
+        SimplePool.Spawn(gameSavedText, new Vector3(0, 15, 0), Quaternion.identity).GetComponent<TextMesh>().text = status;
+    }
+
     void OnGUI()
     {
         levelText.text = "Level " + GameManager.instance.currentLevel;
         scoreText.text = "Score " + string.Format("{0:# ###0}", GameManager.instance.currentScore);
         healthText.text = Mathf.RoundToInt(GameManager.instance.health).ToString();
-        healthMaxText.text = "/" + Mathf.RoundToInt(GameManager.instance.healthMax);
+        healthMaxText.text = "/ " + Mathf.RoundToInt(GameManager.instance.healthMax);
         energyText.text = Mathf.RoundToInt(GameManager.instance.energy).ToString();
-        energyMaxText.text = "/" + Mathf.RoundToInt(GameManager.instance.energyMax);
-        energyRegenText.text = "+" + GameManager.instance.energyRegen.ToString("F1") + "/s";
+        energyMaxText.text = "/ " + Mathf.RoundToInt(GameManager.instance.energyMax);
+        energyRegenText.text = "+" + GameManager.instance.energyRegen.ToString("F1") + " / s";
 
         bulletCostText.text = (GameManager.instance.energyPerShot).ToString("F0");
         bulletDiameterText.text = (GameManager.instance.bulletSize * 10).ToString("F0");
@@ -105,6 +111,7 @@ public class GUIManager : MonoBehaviour {
             gameOverUIActive = true;
             gameOverPanel.SetActive(true);
             gameOverScore.text = string.Format("{0:# ###0}", GameManager.instance.currentScore);
+            DataManager.gameData.DeleteFile();
             Array.ForEach(helpGUI, b => b.SetActive(true));
         }
     }

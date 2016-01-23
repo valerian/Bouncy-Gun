@@ -5830,7 +5830,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 70
+    m_FontSize: 80
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 5
@@ -5841,7 +5841,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Restart
+  m_Text: OK
 --- !u!222 &1007201320
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10418,6 +10418,7 @@ MonoBehaviour:
   chargePanel: {fileID: 447442840}
   energyThreshold: {fileID: 1218323231}
   damageText: {fileID: 121428, guid: 079a32df851188d4bb7e63be5c0420cb, type: 2}
+  gameSavedText: {fileID: 148152, guid: bcd6d594f0ada3542a9b6d49257d2efc, type: 2}
 --- !u!1 &2006495944
 GameObject:
   m_ObjectHideFlags: 0
@@ -12325,6 +12326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skipToLevel: 0
   currentLevel: 0
+  currentScore: 0
   healthMax: 100
   energyMax: 100
   energyRegen: 6.5

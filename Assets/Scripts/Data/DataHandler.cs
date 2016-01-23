@@ -18,6 +18,7 @@ public class DataHandler<T> where T : struct
     public bool DeleteFile()
     {
         File.Delete(filePath);
+        Debug.Log("Deleted " + filePath);
         return true;
     }
 
@@ -30,10 +31,19 @@ public class DataHandler<T> where T : struct
     {
         Nullable<T> data = null;
 
-        BinaryFormatter binaryFormatter = new BinaryFormatter();
-        FileStream file = File.Open(filePath, FileMode.Open);
-        data = (T)binaryFormatter.Deserialize(file);
-        file.Close();
+        if (CanLoad())
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            FileStream file = File.Open(filePath, FileMode.Open);
+            data = (T)binaryFormatter.Deserialize(file);
+            file.Close();
+
+            Debug.Log("Loaded " + filePath);
+        }
+        else
+        {
+            Debug.Log("Could not load " + filePath);
+        }
 
         return data;
     }
@@ -44,6 +54,8 @@ public class DataHandler<T> where T : struct
         FileStream file = File.Create(filePath);
         binaryFormatter.Serialize(file, data);
         file.Close();
+
+        Debug.Log("Saved " + filePath);
 
         return true;
     }
