@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Current Level")]
     public int currentLevel = 0;
+    public long currentScore = 0;
     [Space]
     public float healthMax = 100;
     public float energyMax = 100f;
@@ -71,7 +72,6 @@ public class GameManager : MonoBehaviour {
     // Player values
     public float energy { get; private set; }
     public float health { get; set; }
-    public long score { get; set; }
 
     // Gun handling
     public float chargingStartTime { get; private set; }
@@ -100,7 +100,9 @@ public class GameManager : MonoBehaviour {
         isApplicationQuitting = false;
 
         currentLevel = 1;
-        score = 0;
+        currentScore = 0;
+
+        TryLoadGame();
         StartGame();
     }
 
@@ -140,6 +142,7 @@ public class GameManager : MonoBehaviour {
         enemySpawnRateFactor *= levelIncreaseSpawnRateFactor;
         mutationRate += levelIncreaseMutateChanceFactor;
         currentLevel++;
+        SaveGame();
         StartGame();
     }
 
@@ -148,14 +151,62 @@ public class GameManager : MonoBehaviour {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 
+    private bool TryLoadGame()
+    {
+        System.Nullable<GameData> data = DataManager.gameData.Load();
+
+        if (!data.HasValue)
+            return false;
+
+        bulletDuration  = data.Value.bulletDuration;
+        bulletMass      = data.Value.bulletMass;     
+        bulletSize      = data.Value.bulletSize;     
+        bulletVelocity  = data.Value.bulletVelocity; 
+        currentLevel    = data.Value.currentLevel;   
+        currentScore    = data.Value.currentScore;   
+        energyMax       = data.Value.energyMax;      
+        energyPerShot   = data.Value.energyPerShot;  
+        energyRegen     = data.Value.energyRegen;    
+        fireRate        = data.Value.fireRate;       
+        healthMax       = data.Value.healthMax;      
+        levelSpawnWorth = data.Value.levelSpawnWorth;
+        mutationRate    = data.Value.mutationRate;
+
+        return true;
+    }
+
+    private void SaveGame()
+    {
+        GameData data = new GameData();
+
+        data.bulletDuration  = bulletDuration;
+        data.bulletMass      = bulletMass;     
+        data.bulletSize      = bulletSize;     
+        data.bulletVelocity  = bulletVelocity; 
+        data.currentLevel    = currentLevel;   
+        data.currentScore    = currentScore;   
+        data.energyMax       = energyMax;      
+        data.energyPerShot   = energyPerShot;  
+        data.energyRegen     = energyRegen;    
+        data.fireRate        = fireRate;       
+        data.healthMax       = healthMax;      
+        data.levelSpawnWorth = levelSpawnWorth;
+        data.mutationRate    = mutationRate;
+
+        DataManager.gameData.Save(data);
+    }
+
     void FixedUpdate () {
-        if (health <= 0 || isLevelCleared)
+        if (isPlaying && (health <= 0 || isLevelCleared))
         {
             isPlaying = false;
             isCharged = false;
             isCharging = false;
             chargingAudio.Stop();
         }
+
+        if (!isPlaying)
+            return;
 
         TrySpawnEnemies();
 

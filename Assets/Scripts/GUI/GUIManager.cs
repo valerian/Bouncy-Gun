@@ -59,7 +59,7 @@ public class GUIManager : MonoBehaviour {
     void OnGUI()
     {
         levelText.text = "Level " + GameManager.instance.currentLevel;
-        scoreText.text = "Score " + string.Format("{0:# ###0}", GameManager.instance.score);
+        scoreText.text = "Score " + string.Format("{0:# ###0}", GameManager.instance.currentScore);
         healthText.text = Mathf.RoundToInt(GameManager.instance.health).ToString();
         healthMaxText.text = "/" + Mathf.RoundToInt(GameManager.instance.healthMax);
         energyText.text = Mathf.RoundToInt(GameManager.instance.energy).ToString();
@@ -104,7 +104,7 @@ public class GUIManager : MonoBehaviour {
         {
             gameOverUIActive = true;
             gameOverPanel.SetActive(true);
-            gameOverScore.text = string.Format("{0:# ###0}", GameManager.instance.score);
+            gameOverScore.text = string.Format("{0:# ###0}", GameManager.instance.currentScore);
             Array.ForEach(helpGUI, b => b.SetActive(true));
         }
     }

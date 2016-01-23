@@ -183,7 +183,7 @@ public class Enemy : MonoBehaviour {
             return;
         }
         GameManager.instance.enemyAliveCounter--;
-        GameManager.instance.score += (int) (scoreValue * mutationMultiplicator);
+        GameManager.instance.currentScore += (int) (scoreValue * mutationMultiplicator);
 
         if (explosionParticles != null)
             SimplePool.Spawn(explosionParticles, transform.position + new Vector3(0f, 0f, 0f), transform.rotation);
@@ -217,6 +217,6 @@ public class Enemy : MonoBehaviour {
     {
         GameManager.instance.health -= damage * mutationMultiplicator;
         GUIManager.instance.DamageText(transform.position + new Vector3(0f, 1f, 0f), (int) (damage * mutationMultiplicator), Color.red);
-        GameManager.instance.score -= (int)(scoreValue * mutationMultiplicator);
+        GameManager.instance.currentScore -= (int)(scoreValue * mutationMultiplicator);
     }
 }
