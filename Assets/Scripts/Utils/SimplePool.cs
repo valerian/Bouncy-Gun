@@ -104,11 +104,11 @@ public static class SimplePool
 
                     return Spawn(pos, rot);
                 }
+                obj.transform.position = pos;
+                obj.transform.rotation = rot;
+                obj.SetActive(true);
             }
 
-            obj.transform.position = pos;
-            obj.transform.rotation = rot;
-            obj.SetActive(true);
             return obj;
         }
 
