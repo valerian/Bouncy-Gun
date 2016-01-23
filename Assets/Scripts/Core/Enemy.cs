@@ -80,7 +80,6 @@ public class Enemy : MonoBehaviour {
 
         if (health <= 0)
         {
-            Debug.Log("Despawn from " + gameObject.name);
             SimplePool.Despawn(gameObject);
             return;
         }

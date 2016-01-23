@@ -14,10 +14,16 @@ public class GUIManager : MonoBehaviour {
     public BonusButton[] bonusButtons;
 
     public Text levelText;
+    public Text scoreText;
     public Text healthText;
+    public Text healthMaxText;
     public Text energyText;
     public Text energyRegenText;
     public Text bulletCostText;
+    public Text bulletSpeedText;
+    public Text bulletMassText;
+    public Text bulletDiameterText;
+    public Text bulletDurationText;
     public Text gameOverScore;
 
     public UIVerticalBar healthPanel;
@@ -51,10 +57,17 @@ public class GUIManager : MonoBehaviour {
     void OnGUI()
     {
         levelText.text = "Level " + GameManager.instance.currentLevel;
-        healthText.text = Mathf.RoundToInt(GameManager.instance.health) + " HP";
-        energyText.text = Mathf.RoundToInt(GameManager.instance.energy) + " E";
-        energyRegenText.text = Mathf.RoundToInt(GameManager.instance.energyRegen) + " E/s";
-        bulletCostText.text = Mathf.RoundToInt(GameManager.instance.energyPerShot) + " E";
+        scoreText.text = "Score " + GameManager.instance.score;
+        healthText.text = Mathf.RoundToInt(GameManager.instance.health).ToString();
+        healthMaxText.text = "/" + Mathf.RoundToInt(GameManager.instance.healthMax);
+        energyText.text = Mathf.RoundToInt(GameManager.instance.energy).ToString();
+        energyRegenText.text = "+" + Mathf.RoundToInt(GameManager.instance.energyRegen).ToString("F1") + "/s";
+
+        bulletCostText.text = (GameManager.instance.energyPerShot * 10).ToString("F0");
+        bulletDiameterText.text = (GameManager.instance.bulletSize * 10).ToString("F0");
+        bulletDurationText.text = (GameManager.instance.fireRate * 10).ToString("F0");
+        bulletMassText.text = (GameManager.instance.bulletMass * 10).ToString("F0");
+        bulletSpeedText.text = (GameManager.instance.bulletVelocity / 100f).ToString("F0");
     }
 
     // Update is called once per frame
