@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour {
 
     public void RestartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     private bool TryLoadGame()
