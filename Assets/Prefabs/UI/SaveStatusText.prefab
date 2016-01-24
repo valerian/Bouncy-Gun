@@ -40,7 +40,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 768487ea7682e6c4f87709c486a27e34, type: 3}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -73,7 +73,7 @@ TextMesh:
   m_FontSize: 60
   m_FontStyle: 1
   m_RichText: 0
-  m_Font: {fileID: 0}
+  m_Font: {fileID: 12800000, guid: 768487ea7682e6c4f87709c486a27e34, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4281479730
@@ -96,7 +96,12 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 768487ea7682e6c4f87709c486a27e34,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 148152}
