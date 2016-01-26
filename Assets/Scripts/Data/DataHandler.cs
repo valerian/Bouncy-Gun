@@ -13,6 +13,7 @@ public class DataHandler<T> where T : struct
     {
         this.fileName = fileName;
         filePath = Application.persistentDataPath + '/' + fileName;
+        Debug.Log(filePath);
     }
 
     public bool DeleteFile()
