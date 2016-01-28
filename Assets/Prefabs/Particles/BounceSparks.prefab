@@ -11,7 +11,6 @@ GameObject:
   - 198: {fileID: 19875252}
   - 199: {fileID: 19932148}
   - 114: {fileID: 11458464}
-  - 114: {fileID: 11456380}
   m_Layer: 0
   m_Name: BounceSparks
   m_TagString: Untagged
@@ -31,17 +30,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11456380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c103f7ebe396848b85d41f473e6e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11458464
 MonoBehaviour:
   m_ObjectHideFlags: 1

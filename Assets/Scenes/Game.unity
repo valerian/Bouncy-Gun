@@ -771,7 +771,6 @@ GameObject:
   - 198: {fileID: 398593811}
   - 199: {fileID: 398593810}
   - 114: {fileID: 398593809}
-  - 114: {fileID: 398593812}
   m_Layer: 0
   m_Name: ChargingEffect
   m_TagString: Untagged
@@ -2347,17 +2346,6 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!114 &398593812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 398593807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c103f7ebe396848b85d41f473e6e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &416469620 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11418302, guid: 1babb759dcab1e44a8b04c9da12ec29b,
@@ -3489,7 +3477,6 @@ GameObject:
   - 198: {fileID: 778100240}
   - 199: {fileID: 778100239}
   - 114: {fileID: 778100241}
-  - 114: {fileID: 778100242}
   m_Layer: 0
   m_Name: FireSparksWide
   m_TagString: Untagged
@@ -5053,17 +5040,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68e98e800ece90a42bc1f52b1ffa411d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &778100242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 778100237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c103f7ebe396848b85d41f473e6e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &781231332
@@ -8707,7 +8683,6 @@ GameObject:
   - 198: {fileID: 1971682115}
   - 199: {fileID: 1971682114}
   - 114: {fileID: 1971682113}
-  - 114: {fileID: 1971682116}
   m_Layer: 0
   m_Name: FireSparksNarrow
   m_TagString: Untagged
@@ -10273,17 +10248,6 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!114 &1971682116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1971682111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c103f7ebe396848b85d41f473e6e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1988557051
 GameObject:
   m_ObjectHideFlags: 0
@@ -10634,7 +10598,6 @@ GameObject:
   - 198: {fileID: 2073829448}
   - 199: {fileID: 2073829447}
   - 114: {fileID: 2073829446}
-  - 114: {fileID: 2073829449}
   m_Layer: 0
   m_Name: ChargedEffect
   m_TagString: Untagged
@@ -12195,17 +12158,6 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
---- !u!114 &2073829449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2073829444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2c103f7ebe396848b85d41f473e6e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2078439718
 GameObject:
   m_ObjectHideFlags: 0
@@ -12313,7 +12265,7 @@ MonoBehaviour:
   skipToLevel: 0
   currentLevel: 0
   currentScore: 0
-  healthMax: 100
+  healthMax: 1
   energyMax: 100
   energyRegen: 5
   energyPerShot: 15
