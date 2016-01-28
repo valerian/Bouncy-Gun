@@ -6,7 +6,17 @@ public static class SimplePool
     const int DEFAULT_POOL_SIZE = 16;
     static Dictionary<GameObject, Pool> pools;
 
-    static private GameObject root = new GameObject("Pool");
+    static private GameObject _root;
+    static private GameObject root { get { return _root ?? InitPoolRoot(); } }
+
+    class PoolRoot : MonoBehaviour
+    {
+        void OnDestroy()
+        {
+            SimplePool._root = null;
+            pools = null;
+        }
+    }
 
     class Pool
     {
@@ -14,7 +24,6 @@ public static class SimplePool
         Stack<GameObject> inactive;
         GameObject prefab;
 
-        #region private GameObject root
         GameObject _root;
         GameObject root
         {
@@ -28,7 +37,6 @@ public static class SimplePool
                 return _root;
             } 
         }
-        #endregion
 
         public Pool(GameObject prefab, int initialQty)
         {
@@ -74,16 +82,23 @@ public static class SimplePool
         public Pool myPool;
     }
 
+    static GameObject InitPoolRoot()
+    {
+        _root = new GameObject("Pool");
+        _root.AddComponent<PoolRoot>();
+        System.GC.Collect();
+        Resources.UnloadUnusedAssets();
+        return _root;
+    }
+
     static void Init(GameObject prefab = null, int qty = DEFAULT_POOL_SIZE)
     {
+        if (_root == null)
+            InitPoolRoot();
         if (pools == null)
-        {
             pools = new Dictionary<GameObject, Pool>();
-        }
         if (prefab != null && pools.ContainsKey(prefab) == false)
-        {
             pools[prefab] = new Pool(prefab, qty);
-        }
     }
 
     static public void Preload(GameObject prefab, int qty = 1)
