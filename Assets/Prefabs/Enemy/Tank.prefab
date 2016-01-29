@@ -46,7 +46,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 416238}
   - 50: {fileID: 5019316}
-  - 114: {fileID: 11483702}
   - 58: {fileID: 5886176}
   m_Layer: 0
   m_Name: Tank
@@ -405,6 +404,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11437238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,6 +426,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11480442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,6 +448,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11482484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -438,32 +470,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11483702
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a08f7e6821b52459ef0a62309c2aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 50
-  scoreValue: 1
-  damage: 5
-  thrust: 100
-  rotateSpeed: 0.025
-  collisionAvoidanceDistance: 1.8
-  explostionRadius: 3.2
-  explostionPower: 1000
-  explosionParticles: {fileID: 113964, guid: 6292adaa0e4ec98419ea884e6441c86c, type: 2}
-  debrisParticles: {fileID: 181154, guid: 44a1fbd8804fd9841806fce1385e3da9, type: 2}
-  explosionSoundEffect: {fileID: 112334, guid: d28ed53749bb3c94caa4e2bbe9d3f023, type: 2}
-  collisionSoundInterval: 0.5
-  collisionSparkInterval: 0.2
-  bounceSparks: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317, type: 2}
-  bounceSoundEffect: {fileID: 183206, guid: 903029baa168c31409e4d1ff8592f59c, type: 2}
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11487686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,6 +492,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 453100}
   - 33: {fileID: 3371824}
   - 23: {fileID: 2397722}
-  - 114: {fileID: 11445086}
   - 58: {fileID: 5813820}
   - 50: {fileID: 5077950}
   - 96: {fileID: 9684674}
@@ -173,19 +172,6 @@ TrailRenderer:
       rgba: 8895487
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!114 &11445086
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d914b9e150a1b346b21be49fea8492c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bounceSparks: {fileID: 113528, guid: c4b9626c00bb6ca4e9192bfe85da46ac, type: 2}
-  bounceSound: {fileID: 174228, guid: 3ef92b0f9a96af84caaf170488077d6f, type: 2}
 --- !u!212 &21218184
 SpriteRenderer:
   m_ObjectHideFlags: 1

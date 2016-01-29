@@ -82,7 +82,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 497120}
   - 50: {fileID: 5034228}
-  - 114: {fileID: 11481588}
   - 61: {fileID: 6162936}
   - 58: {fileID: 5885736}
   m_Layer: 0
@@ -497,6 +496,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11421294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -508,6 +518,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11438488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -519,6 +540,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11449066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -530,6 +562,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11452448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -541,6 +584,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!114 &11464572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,32 +606,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11481588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a08f7e6821b52459ef0a62309c2aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 150
-  scoreValue: 6
-  damage: 20
-  thrust: 400
-  rotateSpeed: 0.015
-  collisionAvoidanceDistance: 1.8
-  explostionRadius: 5
-  explostionPower: 1700
-  explosionParticles: {fileID: 126510, guid: ea5e969b77c762940bb2fe75eac1e7d2, type: 2}
-  debrisParticles: {fileID: 140728, guid: 0fb1b1f36e606024aa347c8698118d3f, type: 2}
-  explosionSoundEffect: {fileID: 112334, guid: d28ed53749bb3c94caa4e2bbe9d3f023, type: 2}
-  collisionSoundInterval: 0.5
-  collisionSparkInterval: 0.2
-  bounceSparks: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317, type: 2}
-  bounceSoundEffect: {fileID: 183206, guid: 903029baa168c31409e4d1ff8592f59c, type: 2}
+  originalColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  mutatedColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  _rendererComponent: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

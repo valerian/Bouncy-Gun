@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22467340}
-  - 114: {fileID: 11476626}
   m_Layer: 5
   m_Name: Bonus2
   m_TagString: Untagged
@@ -75,7 +74,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22478196}
-  - 114: {fileID: 11421578}
   m_Layer: 5
   m_Name: Bonus3
   m_TagString: Untagged
@@ -108,7 +106,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22425348}
-  - 114: {fileID: 11460978}
   m_Layer: 5
   m_Name: Bonus1
   m_TagString: Untagged
@@ -144,7 +141,6 @@ GameObject:
   - 222: {fileID: 22257178}
   - 114: {fileID: 11496030}
   - 114: {fileID: 11423636}
-  - 114: {fileID: 11418302}
   m_Layer: 5
   m_Name: BonusButton
   m_TagString: Untagged
@@ -268,33 +264,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Projectile speed
---- !u!114 &11418302
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 158146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23641d33eb25d1a4c91c46b4cf1bea84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusDisplay1: {fileID: 11460978}
-  bonusDisplay2: {fileID: 11476626}
-  bonusDisplay3: {fileID: 11421578}
---- !u!114 &11421578
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e6618a463850847b0cacbefc16d397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DescriptionText: {fileID: 122768}
-  ValueText: {fileID: 117356}
 --- !u!114 &11423636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -334,7 +303,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11418302}
+      - m_Target: {fileID: 0}
         m_MethodName: ApplyBonussesAndLoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -380,19 +349,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: +20%
---- !u!114 &11460978
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 143516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e6618a463850847b0cacbefc16d397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DescriptionText: {fileID: 151742}
-  ValueText: {fileID: 169384}
 --- !u!114 &11472760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -426,19 +382,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Projectile speed
---- !u!114 &11476626
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 104752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e6618a463850847b0cacbefc16d397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DescriptionText: {fileID: 131080}
-  ValueText: {fileID: 137808}
 --- !u!114 &11489748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -762,19 +705,19 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: bonusDisplay1
       value: 
-      objectReference: {fileID: 11460978}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bonusDisplay2
       value: 
-      objectReference: {fileID: 11476626}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bonusDisplay3
       value: 
-      objectReference: {fileID: 11421578}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11418302}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ApplyBonussesAndLoadNextLevel
