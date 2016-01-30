@@ -5285,7 +5285,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &813401205
 GameObject:
   m_ObjectHideFlags: 0
@@ -5976,7 +5976,7 @@ Transform:
   - {fileID: 1839450387}
   - {fileID: 1253410308}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!1 &1102439903
 GameObject:
   m_ObjectHideFlags: 0
@@ -7209,7 +7209,7 @@ Transform:
   - {fileID: 984217693}
   - {fileID: 311437701}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1587090072
 GameObject:
   m_ObjectHideFlags: 0
@@ -8203,6 +8203,46 @@ Transform:
   - {fileID: 2078439719}
   m_Father: {fileID: 1086264801}
   m_RootOrder: 2
+--- !u!1 &1842345711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1842345713}
+  - 114: {fileID: 1842345712}
+  m_Layer: 0
+  m_Name: INIT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1842345712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1842345711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7477094b77455d94288a0dade2cc31b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialState: 4
+--- !u!4 &1842345713
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1842345711}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &1908674844
 GameObject:
   m_ObjectHideFlags: 0
@@ -9917,7 +9957,7 @@ RectTransform:
   - {fileID: 544922449}
   - {fileID: 1428854942}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -11692,7 +11732,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2087156137}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: MANAGERS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11709,7 +11749,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
 --- !u!1 &2091593115
 GameObject:
   m_ObjectHideFlags: 0
