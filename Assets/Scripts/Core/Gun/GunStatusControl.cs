@@ -70,7 +70,6 @@ public class GunStatusControl : MonoBehaviour
     {
         if (status == STATUS.charging)
         {
-            Debug.Log(Game.GameData.gunChargeTime);
             if (Time.time - chargingStartTime >= Game.GameData.gunChargeTime)
                 status = STATUS.charged;
             chargingRatio = Mathf.Clamp01((Time.time - chargingStartTime) / Game.GameData.gunChargeTime);

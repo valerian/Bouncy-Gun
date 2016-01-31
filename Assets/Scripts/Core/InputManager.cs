@@ -4,7 +4,9 @@ using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    public float ballisticPlaneZ = 0.35f;
+    [SerializeField]
+    private float _ballisticPlaneZ = 0.35f;
+    public float ballisticPlaneZ { get { return _ballisticPlaneZ; } }
 
     private UnityEventBool _onClickStateChanged;
     public UnityEventBool onClickStateChanged { get { return _onClickStateChanged ?? (_onClickStateChanged = new UnityEventBool()); } }

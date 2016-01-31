@@ -84,7 +84,7 @@ public static class SimplePool
 
     static GameObject InitPoolRoot()
     {
-        _root = new GameObject("Pool");
+        _root = new GameObject("POOL");
         _root.AddComponent<PoolRoot>();
         System.GC.Collect();
         Resources.UnloadUnusedAssets();
