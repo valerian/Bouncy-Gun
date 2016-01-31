@@ -11,7 +11,7 @@ public class GunAudioOnCharge : MonoBehaviour
 
     void Start()
     {
-        gunStatusControl = FindObjectOfType<GunStatusControl>();
+        gunStatusControl = GetComponentInParent<GunStatusControl>();
         if (gunStatusControl == null)
         {
             Debug.LogWarning("No instance of GunStatusControl found");

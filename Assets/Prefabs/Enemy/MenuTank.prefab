@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 470588}
   - 33: {fileID: 3354348}
   - 23: {fileID: 2319436}
-  - 114: {fileID: 11438954}
   m_Layer: 0
   m_Name: TrackLeft
   m_TagString: Untagged
@@ -28,7 +27,6 @@ GameObject:
   - 4: {fileID: 419648}
   - 33: {fileID: 3338084}
   - 23: {fileID: 2318820}
-  - 114: {fileID: 11419236}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -46,7 +44,6 @@ GameObject:
   - 4: {fileID: 495012}
   - 33: {fileID: 3331284}
   - 23: {fileID: 2317028}
-  - 114: {fileID: 11442348}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -65,7 +62,6 @@ GameObject:
   - 33: {fileID: 3380780}
   - 65: {fileID: 6578616}
   - 23: {fileID: 2385464}
-  - 114: {fileID: 11457262}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -83,7 +79,6 @@ GameObject:
   - 4: {fileID: 400576}
   - 33: {fileID: 3347886}
   - 23: {fileID: 2391086}
-  - 114: {fileID: 11443790}
   m_Layer: 0
   m_Name: TrackRight
   m_TagString: Untagged
@@ -361,61 +356,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11419236
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11438954
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11442348
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 135010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11443790
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 175566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11457262
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11468398
 MonoBehaviour:
   m_ObjectHideFlags: 1

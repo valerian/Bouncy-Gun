@@ -1,45 +1,50 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 [Prefab("GAME", true)]
-public class Game : Singleton<Game>
+public partial class Game : Singleton<Game>
 {
-    // STATIC SHORTCUTS
-
-    public static STATE State { get { return instance.state; } }
-
-    public static InputManager InputManager { get { return instance.inputManager; } }
-    public static SpawnManager SpawnManager { get { return instance.spawnManager; } }
-    public static GameData GameData { get { return instance.gameData; } }
-
-    // EVENTS
-
-    private UnityEventGameState _onStateChanged;
-    public UnityEventGameState onStateChanged { get { return _onStateChanged ?? (_onStateChanged = new UnityEventGameState()); } }
-
-    // GAME STATE
+    // ENUM
 
     public enum STATE
     {
         preInit,
-        homeStart,
         home,
         play,
-        playStart,
         playLose,
         playEndLevel,
         playPause,
     }
 
-    [SerializeField]
-    private STATE _state = STATE.preInit;
+    // STATIC SHORTCUTS
+
+    public static STATE State { get { return instance.state; } }
+    public static InputManager InputManager { get { return instance.inputManager; } }
+    public static SpawnManager SpawnManager { get { return instance.spawnManager; } }
+    public static GameData GameData { get { return instance.gameData; } }
+    
+    // PUBLIC EVENTS
+
+    public UnityEventGameState onStateChanged { get { return _onStateChanged; } }
+    public Dictionary<STATE, UnityEvent> onState = Enum.GetValues(typeof(STATE)).Cast<STATE>().ToDictionary(state => state, state => new UnityEvent());
+
+    // FIELDS
+
+    [SerializeField] private GameData gameData = default(GameData);
+    [SerializeField] private STATE _state = STATE.preInit;
+    private UnityEventGameState _onStateChanged = new UnityEventGameState();
+    private InputManager inputManager = null;
+    private SpawnManager spawnManager = null;
+
+    // PROPERTIES
+
     private STATE state
     {
-        get
-        {
-            return _state;
-        }
+        get { return _state; }
         
         set
         {
@@ -47,42 +52,40 @@ public class Game : Singleton<Game>
                 return;
             _state = value;
             onStateChanged.Invoke(value);
+            onState[value].Invoke();
         } 
     }
 
-    // MANAGERS
-
-    private InputManager inputManager = null;
-    private SpawnManager spawnManager = null;
-    [SerializeField]
-    private GameData gameData = default(GameData);
-
+    public void InitializeState(GameStateInit initializer)
+    {
+        state = initializer.initialState;
+    }
 
     void Init()
     {
         if (state != STATE.preInit)
             Debug.LogWarning("Init called while state was not preInit!");
-        GameStateInit initializer = FindObjectOfType<GameStateInit>();
-        if (initializer == null)
-        {
-            Debug.LogError("Could not find GameStateInit object");
-            return;
-        }
-
-        state = initializer.initialState;
         inputManager = FindObjectOfType<InputManager>();
         spawnManager = FindObjectOfType<SpawnManager>();
         if (spawnManager != null)
             spawnManager.onLevelCleared.AddListener(OnLevelCleared);
     }
-    void Awake() { Init(); }
-    void OnLevelWasLoaded(int index) { Init(); }
+
+    void Awake()
+    {
+        Init();
+    }
+
+    void OnLevelWasLoaded(int index) 
+    { 
+        Init();
+    }
 
     void FixedUpdate()
     {
         switch (state)
         {
-            case STATE.playStart:
+            case STATE.play:
                 break;
             default:
                 break;
@@ -94,6 +97,9 @@ public class Game : Singleton<Game>
         // remove references to local managers
         inputManager = null;
         spawnManager = null;
+
+        // clean events from their listeners
+        onStateChanged.RemoveAllListeners();
     }
 
     void OnLevelCleared()

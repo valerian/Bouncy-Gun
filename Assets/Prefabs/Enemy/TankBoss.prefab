@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 408352}
   - 33: {fileID: 3354174}
   - 23: {fileID: 2319044}
-  - 114: {fileID: 11421294}
   m_Layer: 0
   m_Name: TrackLeft
   m_TagString: Untagged
@@ -28,7 +27,6 @@ GameObject:
   - 4: {fileID: 460322}
   - 33: {fileID: 3395688}
   - 23: {fileID: 2354022}
-  - 114: {fileID: 11449066}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -46,7 +44,6 @@ GameObject:
   - 4: {fileID: 400122}
   - 33: {fileID: 3368510}
   - 23: {fileID: 2304646}
-  - 114: {fileID: 11452448}
   m_Layer: 0
   m_Name: TrackRight
   m_TagString: Untagged
@@ -65,7 +62,6 @@ GameObject:
   - 33: {fileID: 3366766}
   - 65: {fileID: 6506662}
   - 23: {fileID: 2338794}
-  - 114: {fileID: 11421044}
   m_Layer: 0
   m_Name: CannonLeft
   m_TagString: Untagged
@@ -101,7 +97,6 @@ GameObject:
   - 4: {fileID: 484874}
   - 33: {fileID: 3348728}
   - 23: {fileID: 2324730}
-  - 114: {fileID: 11464572}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -120,7 +115,6 @@ GameObject:
   - 33: {fileID: 3325318}
   - 65: {fileID: 6541914}
   - 23: {fileID: 2302290}
-  - 114: {fileID: 11438488}
   m_Layer: 0
   m_Name: CannonRight
   m_TagString: Untagged
@@ -485,138 +479,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11421044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11421294
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 103204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11438488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11449066
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11452448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11464572
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -17,18 +17,18 @@ public class GunParticleOnEvent : MonoBehaviour
     [SerializeField]
     private bool clearOnFired = false;
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem particleSystemComponent;
 
     void Start()
     {
-        GunStatusControl gunStatusControl = FindObjectOfType<GunStatusControl>();
+        GunStatusControl gunStatusControl = GetComponentInParent<GunStatusControl>();
         if (gunStatusControl == null)
         {
             Debug.LogWarning("No instance of GunStatusControl found");
             return;
         }
 
-        particleSystem = GetComponent<ParticleSystem>();
+        particleSystemComponent = GetComponent<ParticleSystem>();
         gunStatusControl.onCharging.AddListener(((triggerEvent == TRIGGER.charging) ? (UnityAction)ParticlePlay : (UnityAction)ParticleStop));
         gunStatusControl.onCharged.AddListener(((triggerEvent == TRIGGER.charged) ? (UnityAction)ParticlePlay : (UnityAction)ParticleStop));
         gunStatusControl.onFired.AddListener(((triggerEvent == TRIGGER.fired) ? (UnityAction)ParticlePlay : (UnityAction)ParticleStopAndClear));
@@ -37,18 +37,18 @@ public class GunParticleOnEvent : MonoBehaviour
 
     void ParticlePlay()
     {
-        particleSystem.Play();
+        particleSystemComponent.Play();
     }
 
     void ParticleStop()
     {
-        particleSystem.Stop();
+        particleSystemComponent.Stop();
     }
 
     void ParticleStopAndClear()
     {
-        particleSystem.Stop();
+        particleSystemComponent.Stop();
         if (clearOnFired)
-            particleSystem.Clear();
+            particleSystemComponent.Clear();
     }
 }

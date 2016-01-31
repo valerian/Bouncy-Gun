@@ -11,7 +11,6 @@ GameObject:
   - 33: {fileID: 3372748}
   - 65: {fileID: 6572960}
   - 23: {fileID: 2367426}
-  - 114: {fileID: 11487686}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -29,7 +28,6 @@ GameObject:
   - 4: {fileID: 477910}
   - 33: {fileID: 3329008}
   - 23: {fileID: 2343184}
-  - 114: {fileID: 11437238}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -47,6 +45,8 @@ GameObject:
   - 4: {fileID: 416238}
   - 50: {fileID: 5019316}
   - 58: {fileID: 5886176}
+  - 114: {fileID: 11484096}
+  - 114: {fileID: 11423112}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Enemy
@@ -64,7 +64,6 @@ GameObject:
   - 4: {fileID: 487304}
   - 33: {fileID: 3383738}
   - 23: {fileID: 2359302}
-  - 114: {fileID: 11482484}
   m_Layer: 0
   m_Name: TrackLeft
   m_TagString: Untagged
@@ -82,7 +81,6 @@ GameObject:
   - 4: {fileID: 439776}
   - 33: {fileID: 3394818}
   - 23: {fileID: 2316004}
-  - 114: {fileID: 11431858}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -100,7 +98,6 @@ GameObject:
   - 4: {fileID: 411258}
   - 33: {fileID: 3365750}
   - 23: {fileID: 2381388}
-  - 114: {fileID: 11480442}
   m_Layer: 0
   m_Name: TrackRight
   m_TagString: Untagged
@@ -393,116 +390,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11431858
+--- !u!114 &11423112
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187906}
+  m_GameObject: {fileID: 159892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
+  m_Script: {fileID: 11500000, guid: 330947adbc0db254285b047beab30b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11437238
+  boundaryX: 6.8
+  respawnMaxX: 6
+  respawnShiftY: 1
+--- !u!114 &11484096
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 116136}
+  m_GameObject: {fileID: 159892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ed2638a0b3ea764f9cd9a7fa8acadf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11480442
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 190310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11482484
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 181672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11487686
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
+  thrust: 50
+  rotateSpeed: 0.00000001
+  collisionAvoidanceDistance: 1.8
+  outOfScreenY: 26
+  outOfScreenBonusThrustFactor: 4
+  outOfScreenBonusRotateFactor: 10
+  outOfScreenFarY: 33
+  outOfScreenFarBonusThrustFactor: 12
+  outOfScreenFarBonusRotateFactor: 20
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -532,7 +453,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: thrust
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: explosion
@@ -624,7 +545,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rotateSpeed
-      value: 0.025
+      value: 0.00000001
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x

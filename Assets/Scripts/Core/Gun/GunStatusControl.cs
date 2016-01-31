@@ -57,7 +57,7 @@ public class GunStatusControl : MonoBehaviour
 
     private float chargingStartTime = float.NegativeInfinity;
 
-    void Awake()
+    void Start()
     {
         chargingRatio = 0;
         Game.instance.onStateChanged.AddListener((Game.STATE state) => { status = (state == Game.STATE.play) ? STATUS.idle : STATUS.disabled; });

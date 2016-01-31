@@ -7,7 +7,7 @@ public class FadeTintOnEphemeral : MonoBehaviour
     [Range(0f,0.999f)]
     [SerializeField]
     private float fadeStartPoint = 0f;
-    private Renderer renderer;
+    private Renderer rendererComponent;
     private Ephemeral ephemeral;
     private Color initialMaterialColor;
 
@@ -20,8 +20,8 @@ public class FadeTintOnEphemeral : MonoBehaviour
             Debug.LogWarning("Component Ephemeral not found in parents!");
             return;
         }
-        renderer = GetComponent<Renderer>();
-        initialMaterialColor = renderer.material.GetColor("_TintColor");
+        rendererComponent = GetComponent<Renderer>();
+        initialMaterialColor = rendererComponent.material.GetColor("_TintColor");
     }
 
     void Update()
@@ -29,6 +29,6 @@ public class FadeTintOnEphemeral : MonoBehaviour
         Color newColor = initialMaterialColor;
         float alphaFactor = Mathf.Clamp01((ephemeral.remainingTime / ephemeral.totalDuration) / (1f - fadeStartPoint));
         newColor.a *= alphaFactor;
-        renderer.material.SetColor("_TintColor", newColor);
+        rendererComponent.material.SetColor("_TintColor", newColor);
     }
 }

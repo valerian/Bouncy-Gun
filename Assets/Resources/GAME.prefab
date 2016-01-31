@@ -39,9 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d46541b35b89043a5bda4b35fd22e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 0
   gameData:
-    currentLevel: 0
+    currentLevel: 1
     currentScore: 0
     healthMax: 100
     energyMax: 100
@@ -102,6 +101,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: gameData.gunChargeEnergy
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: gameData.currentLevel
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

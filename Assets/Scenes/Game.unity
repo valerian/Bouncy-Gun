@@ -156,8 +156,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 11704971}
   - 58: {fileID: 11704970}
-  - 114: {fileID: 11704968}
   - 114: {fileID: 11704972}
+  - 114: {fileID: 11704968}
   - 114: {fileID: 11704969}
   - 114: {fileID: 11704973}
   m_Layer: 0
@@ -7035,8 +7035,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1501008773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 89.5, z: 0}
-  m_LocalScale: {x: 13, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 85, z: 0}
+  m_LocalScale: {x: 13, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 1839450387}
   m_RootOrder: 3

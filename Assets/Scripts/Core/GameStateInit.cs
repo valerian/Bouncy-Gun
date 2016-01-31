@@ -1,14 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-public class GameStateInit : MonoBehaviour
+
+public partial class GameStateInit : MonoBehaviour
 {
     public Game.STATE initialState;
 
     void Awake()
     {
-        //Force Game from instantiate
+        //Force Game to instantiate
         if (Game.instance)
             return;
+    }
+
+    void Start()
+    {
+        Game.instance.InitializeState(this);
     }
 }
