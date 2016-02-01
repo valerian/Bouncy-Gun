@@ -86,6 +86,4 @@ public class GunStatusControl : MonoBehaviour
         if (!isClicked && (status == STATUS.charging || status == STATUS.charged))
             status = STATUS.idle;
     }
-
-    
 }

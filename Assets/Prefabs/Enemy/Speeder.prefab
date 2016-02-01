@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 408096}
   - 33: {fileID: 3371508}
   - 23: {fileID: 2383918}
-  - 114: {fileID: 11419470}
   m_Layer: 0
   m_Name: WheelBackRight
   m_TagString: Untagged
@@ -45,7 +44,6 @@ GameObject:
   - 4: {fileID: 422964}
   - 33: {fileID: 3345648}
   - 23: {fileID: 2355928}
-  - 114: {fileID: 11443384}
   m_Layer: 0
   m_Name: WheelFrontLeft
   m_TagString: Untagged
@@ -63,7 +61,6 @@ GameObject:
   - 4: {fileID: 417826}
   - 33: {fileID: 3371142}
   - 23: {fileID: 2394330}
-  - 114: {fileID: 11437488}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -81,7 +78,6 @@ GameObject:
   - 4: {fileID: 498414}
   - 33: {fileID: 3362456}
   - 23: {fileID: 2385628}
-  - 114: {fileID: 11417566}
   m_Layer: 0
   m_Name: WheelFrontRight
   m_TagString: Untagged
@@ -99,7 +95,6 @@ GameObject:
   - 4: {fileID: 440630}
   - 33: {fileID: 3323494}
   - 23: {fileID: 2362214}
-  - 114: {fileID: 11495314}
   m_Layer: 0
   m_Name: WheelBackLeft
   m_TagString: Untagged
@@ -380,116 +375,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6012702
---- !u!114 &11417566
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11419470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11437488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11443384
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 162444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
---- !u!114 &11495314
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 195908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d01ba8232c535448d218d23d23437c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  mutatedColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  _rendererComponent: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

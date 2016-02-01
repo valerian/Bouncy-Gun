@@ -8277,7 +8277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7477094b77455d94288a0dade2cc31b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialState: 3
+  initialState: 2
 --- !u!4 &1842345713
 Transform:
   m_ObjectHideFlags: 0
@@ -11955,12 +11955,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce4c296f20a2214ea8ae8a60b4fc345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
-  initialSpawnTimeWorth: 8
-  enemySpawnRateFactor: 1
-  levelIncreaseSpawnAmountFactor: 1.15
-  levelIncreaseSpawnRateFactor: 1.15
-  levelIncreaseMutateChanceFactor: 0.1
+  enemies:
+  - prefab: {fileID: 159892, guid: ab4f8bbdd937a114e8d18ec0e9145c91, type: 2}
+    spawnRate: 0.3
+    spawnWorth: 1
+  preSpawnTimeWorth: 8
+  baseLevelSpawnAmount: 30
+  levelIncreaseSpawnAmountMultiplier: 1.15
+  levelIncreaseSpawnRateMultiplier: 1.15
+  levelIncreaseMutateChanceIncrement: 0.1
 --- !u!114 &2087156139
 MonoBehaviour:
   m_ObjectHideFlags: 0

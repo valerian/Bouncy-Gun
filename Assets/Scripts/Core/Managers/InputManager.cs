@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
     private Vector3 _worldMousePosition;
     public Vector3 worldMousePosition { get { return isWorldMousePositionUpdated ? _worldMousePosition : UpdateWorldMousePosition(); } }
 
-    public bool isClickPressed { get { return Input.GetButtonDown("Fire1");  } }
+    public bool isClickPressed { get { return Input.GetButton("Fire1");  } }
 
     private bool isWorldMousePositionUpdated = false;
  

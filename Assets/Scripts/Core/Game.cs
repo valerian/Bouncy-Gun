@@ -53,7 +53,7 @@ public partial class Game : Singleton<Game>
             _state = value;
             onStateChanged.Invoke(value);
             onState[value].Invoke();
-        } 
+        }
     }
 
     public void InitializeState(GameStateInit initializer)

@@ -13,6 +13,7 @@ public class GunAudioOnFire : MonoBehaviour
         if (gunStatusControl == null)
         {
             Debug.LogWarning("No instance of GunStatusControl found");
+            enabled = false;
             return;
         }
         audioSource = GetComponent<AudioSource>();

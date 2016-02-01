@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrust: 50
-  rotateSpeed: 0.00000001
+  rotateSpeed: 0.02
   collisionAvoidanceDistance: 1.8
   outOfScreenY: 26
   outOfScreenBonusThrustFactor: 4
@@ -545,7 +545,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rotateSpeed
-      value: 0.00000001
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x

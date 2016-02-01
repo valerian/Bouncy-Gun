@@ -51,6 +51,7 @@ MonoBehaviour:
     bulletMass: 2
     bulletSize: 0.6
     bulletDuration: 2
+  _state: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
