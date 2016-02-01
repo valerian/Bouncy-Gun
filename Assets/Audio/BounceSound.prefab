@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 435908}
   - 82: {fileID: 8221928}
-  - 114: {fileID: 11479688}
   m_Layer: 0
   m_Name: BounceSound
   m_TagString: Untagged
@@ -103,17 +102,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &11479688
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec24ef6f54b721b4aa42de80991d0464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

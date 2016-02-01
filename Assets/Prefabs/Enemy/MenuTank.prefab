@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 470588}
   - 33: {fileID: 3354348}
   - 23: {fileID: 2319436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 419648}
   - 33: {fileID: 3338084}
   - 23: {fileID: 2318820}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 495012}
   - 33: {fileID: 3331284}
   - 23: {fileID: 2317028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - 33: {fileID: 3380780}
   - 65: {fileID: 6578616}
   - 23: {fileID: 2385464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - 4: {fileID: 400576}
   - 33: {fileID: 3347886}
   - 23: {fileID: 2391086}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrackRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 404948}
   - 114: {fileID: 11468398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MenuTank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -378,6 +378,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: speed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

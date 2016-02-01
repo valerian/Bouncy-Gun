@@ -3,7 +3,11 @@ using System.Collections;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class UnityEventBool : UnityEvent<bool> {}
+public class UnityEventFloatFloat : UnityEvent<float, float> { }
 
 [System.Serializable]
-public class UnityEventGameState : UnityEvent<Game.STATE> { }
+public class UnityEventFloat : UnityEvent<float> { }
+
+[System.Serializable]
+public class UnityEventBool : UnityEvent<bool> {}
+

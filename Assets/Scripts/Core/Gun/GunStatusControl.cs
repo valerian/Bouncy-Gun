@@ -60,7 +60,7 @@ public class GunStatusControl : MonoBehaviour
     void Start()
     {
         chargingRatio = 0;
-        Game.instance.onStateChanged.AddListener((Game.STATE state) => { status = (state == Game.STATE.play) ? STATUS.idle : STATUS.disabled; });
+        Game.instance.onStateChanged.AddListener((Game.STATE _, Game.STATE state) => { status = (state == Game.STATE.play) ? STATUS.idle : STATUS.disabled; });
         if (Game.State == Game.STATE.play)
             status = STATUS.idle;
         Game.InputManager.onClickStateChanged.AddListener(OnClickStateChanged);

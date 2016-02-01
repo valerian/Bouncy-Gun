@@ -20,14 +20,14 @@ public class Ephemeral : MonoBehaviour
         return ephemeral;
     }
 
-    void Start()
+    void OnEnable()
     {
         _birthTime = Time.time;
-        Invoke("Die", _totalDuration);
     }
 
-    void Die()
+    void FixedUpdate()
     {
-        Destroy(gameObject);
+        if (Time.time > _birthTime + _totalDuration)
+            Pool.Despawn(gameObject);
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3372748}
   - 65: {fileID: 6572960}
   - 23: {fileID: 2367426}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   - 4: {fileID: 477910}
   - 33: {fileID: 3329008}
   - 23: {fileID: 2343184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,10 @@ GameObject:
   - 58: {fileID: 5886176}
   - 114: {fileID: 11484096}
   - 114: {fileID: 11423112}
-  m_Layer: 0
+  - 114: {fileID: 11462074}
+  - 114: {fileID: 11441890}
+  - 114: {fileID: 11460064}
+  m_Layer: 8
   m_Name: Tank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -64,7 +67,7 @@ GameObject:
   - 4: {fileID: 487304}
   - 33: {fileID: 3383738}
   - 23: {fileID: 2359302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +84,7 @@ GameObject:
   - 4: {fileID: 439776}
   - 33: {fileID: 3394818}
   - 23: {fileID: 2316004}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +101,7 @@ GameObject:
   - 4: {fileID: 411258}
   - 33: {fileID: 3365750}
   - 23: {fileID: 2381388}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrackRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,6 +407,60 @@ MonoBehaviour:
   boundaryX: 6.8
   respawnMaxX: 6
   respawnShiftY: 1
+--- !u!114 &11441890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6073eb3b49a638c469f154839305f6e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPrefabsOnDeath:
+  - {fileID: 113964, guid: 6292adaa0e4ec98419ea884e6441c86c, type: 2}
+  - {fileID: 181154, guid: 44a1fbd8804fd9841806fce1385e3da9, type: 2}
+  - {fileID: 112334, guid: d28ed53749bb3c94caa4e2bbe9d3f023, type: 2}
+  explosionRadius: 3.2
+  explosionForce: 1000
+  affectedLayers:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &11460064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdcb602443069c4469a2a368f8569400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 1792
+  damageMultiplicator: 1
+  collisionParticleMinInterval: 0.5
+  collisionSoundMinInterval: 0.2
+  collisionParticlePrefab: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317,
+    type: 2}
+  collisionSound: {fileID: 0}
+--- !u!114 &11462074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3aa53743f2cf0146ae87e3f5e34d193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onDepleted: 2
+  _healthMax: 100
+  _healthCurrent: 0
 --- !u!114 &11484096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -424,6 +481,10 @@ MonoBehaviour:
   outOfScreenFarY: 33
   outOfScreenFarBonusThrustFactor: 12
   outOfScreenFarBonusRotateFactor: 20
+  wallAvoidLookahead: 3
+  wallAvoidBoundaryX: 5.8
+  turretAvoidDistanceX: 1.8
+  turretAvoidDistanceY: 8
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -431,6 +492,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: spawnPrefabsOnDeath.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -563,6 +628,34 @@ Prefab:
       propertyPath: damage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: layers.m_Bits
+      value: 1792
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: affectedLayers.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnPrefabsOnDeath.Array.data[0]
+      value: 
+      objectReference: {fileID: 113964, guid: 6292adaa0e4ec98419ea884e6441c86c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnPrefabsOnDeath.Array.data[1]
+      value: 
+      objectReference: {fileID: 181154, guid: 44a1fbd8804fd9841806fce1385e3da9, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnPrefabsOnDeath.Array.data[2]
+      value: 
+      objectReference: {fileID: 112334, guid: d28ed53749bb3c94caa4e2bbe9d3f023, type: 2}
+    - target: {fileID: 0}
+      propertyPath: collisionParticlePrefab
+      value: 
+      objectReference: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159892}

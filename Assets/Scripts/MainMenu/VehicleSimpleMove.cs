@@ -9,7 +9,7 @@ public class VehicleSimpleMove : MonoBehaviour
     {
         if (transform.position.z > 3 || transform.position.z < -45)
         {
-            SimplePool.Despawn(gameObject);
+            Pool.Despawn(gameObject);
             return;
         }
         transform.position += -1f * speed * Time.deltaTime * transform.up;

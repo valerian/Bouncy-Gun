@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 408096}
   - 33: {fileID: 3371508}
   - 23: {fileID: 2383918}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelBackRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 465724}
   - 50: {fileID: 5072228}
   - 58: {fileID: 5804990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Speeder
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 422964}
   - 33: {fileID: 3345648}
   - 23: {fileID: 2355928}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelFrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - 4: {fileID: 417826}
   - 33: {fileID: 3371142}
   - 23: {fileID: 2394330}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - 4: {fileID: 498414}
   - 33: {fileID: 3362456}
   - 23: {fileID: 2385628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelFrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - 4: {fileID: 440630}
   - 33: {fileID: 3323494}
   - 23: {fileID: 2362214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelBackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,6 +434,10 @@ Prefab:
       propertyPath: explosionParticles
       value: 
       objectReference: {fileID: 100010, guid: 93f2c95ad8a9048aba5958f95784f8f5, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 122194}

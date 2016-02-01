@@ -10,17 +10,17 @@ public struct EnemyDefinition
     public int spawnWorth;
 }
 
-public class SpawnManager : MonoBehaviour
+public class EnemySpawnManager : MonoBehaviour
 {
     // INTERNAL OBSERVER COMPONENT
 
-    public class SpawnManagerObserver : MonoBehaviour
+    public class EnemySpawnManagerObserver : MonoBehaviour
     {
-        private SpawnManager spawnManager;
+        private EnemySpawnManager spawnManager;
 
-        public static SpawnManagerObserver AddOrUpdateComponent(GameObject where, SpawnManager spawnManager)
+        public static EnemySpawnManagerObserver AddOrUpdateComponent(GameObject where, EnemySpawnManager spawnManager)
         {
-            SpawnManagerObserver component = where.GetComponent<SpawnManagerObserver>() ?? where.AddComponent<SpawnManagerObserver>();
+            EnemySpawnManagerObserver component = where.GetComponent<EnemySpawnManagerObserver>() ?? where.AddComponent<EnemySpawnManagerObserver>();
             component.spawnManager = spawnManager;
             return component;
         }
@@ -103,8 +103,8 @@ public class SpawnManager : MonoBehaviour
                 mutationLevel++;
             enemyAliveCounter++;
             enemySpawnTotalValue += enemyDefinition.spawnWorth * (int)(Mathf.Pow(2, mutationLevel) / 2f);
-            GameObject enemy = SimplePool.Spawn(enemyDefinition.prefab, new Vector3(Random.Range(-4.5f, 4.5f), 27f, 0.35f), Quaternion.identity);
-            SpawnManagerObserver.AddOrUpdateComponent(enemy, this);
+            GameObject enemy = Pool.Spawn(enemyDefinition.prefab, new Vector3(Random.Range(-4.5f, 4.5f), 27f, 0.35f), Quaternion.identity);
+            EnemySpawnManagerObserver.AddOrUpdateComponent(enemy, this);
         }
     }
 

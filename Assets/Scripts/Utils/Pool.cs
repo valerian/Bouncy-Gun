@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public static class SimplePool
+public static class Pool
 {
     const int DEFAULT_POOL_SIZE = 16;
-    static Dictionary<GameObject, Pool> pools;
+    static Dictionary<GameObject, GameObjectPool> pools;
 
     static private GameObject _root;
     static private GameObject root { get { return _root ?? InitPoolRoot(); } }
@@ -13,16 +13,17 @@ public static class SimplePool
     {
         void OnDestroy()
         {
-            SimplePool._root = null;
+            Pool._root = null;
             pools = null;
         }
     }
 
-    class Pool
+    class GameObjectPool
     {
         int nextId = 1;
         Stack<GameObject> inactive;
         GameObject prefab;
+        Transform spawnParent = null;
 
         GameObject _root;
         GameObject root
@@ -32,16 +33,19 @@ public static class SimplePool
                 if (!_root)
                 {
                     _root = new GameObject(prefab.name + " Pool");
-                    _root.transform.parent = SimplePool.root.transform;
+                    _root.transform.parent = Pool.root.transform;
                 }
                 return _root;
             } 
         }
 
-        public Pool(GameObject prefab, int initialQty)
+        public GameObjectPool(GameObject prefab, int initialQty)
         {
             this.prefab = prefab;
             inactive = new Stack<GameObject>(initialQty);
+            DynamicSpawnManager dynamicSpawnManager = Object.FindObjectOfType<DynamicSpawnManager>();
+            if (dynamicSpawnManager)
+                spawnParent = dynamicSpawnManager.GetSpawnParent(prefab);
         }
 
         public GameObject Spawn(Vector3 pos, Quaternion rot)
@@ -61,10 +65,9 @@ public static class SimplePool
                     return Spawn(pos, rot);
                 obj.transform.position = pos;
                 obj.transform.rotation = rot;
-                obj.transform.parent = null;
                 obj.SetActive(true);
             }
-
+            obj.transform.parent = spawnParent;
             return obj;
         }
 
@@ -79,7 +82,7 @@ public static class SimplePool
 
     class PoolMember : MonoBehaviour
     {
-        public Pool myPool;
+        public GameObjectPool myPool;
     }
 
     static GameObject InitPoolRoot()
@@ -96,9 +99,9 @@ public static class SimplePool
         if (_root == null)
             InitPoolRoot();
         if (pools == null)
-            pools = new Dictionary<GameObject, Pool>();
+            pools = new Dictionary<GameObject, GameObjectPool>();
         if (prefab != null && pools.ContainsKey(prefab) == false)
-            pools[prefab] = new Pool(prefab, qty);
+            pools[prefab] = new GameObjectPool(prefab, qty);
     }
 
     static public void Preload(GameObject prefab, int qty = 1)

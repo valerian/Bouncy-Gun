@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 481524}
   - 198: {fileID: 19826296}
   - 199: {fileID: 19989828}
-  - 114: {fileID: 11486594}
   m_Layer: 0
   m_Name: EnemyDeathSparks
   m_TagString: Untagged
@@ -30,17 +29,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11486594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 113964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b444fed06020650419a62a78aee85045, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &19826296
 ParticleSystem:
   m_ObjectHideFlags: 1

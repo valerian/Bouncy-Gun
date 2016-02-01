@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 408352}
   - 33: {fileID: 3354174}
   - 23: {fileID: 2319044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 460322}
   - 33: {fileID: 3395688}
   - 23: {fileID: 2354022}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 400122}
   - 33: {fileID: 3368510}
   - 23: {fileID: 2304646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrackRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - 33: {fileID: 3366766}
   - 65: {fileID: 6506662}
   - 23: {fileID: 2338794}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CannonLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - 50: {fileID: 5034228}
   - 61: {fileID: 6162936}
   - 58: {fileID: 5885736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankBoss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - 4: {fileID: 484874}
   - 33: {fileID: 3348728}
   - 23: {fileID: 2324730}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - 33: {fileID: 3325318}
   - 65: {fileID: 6541914}
   - 23: {fileID: 2302290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CannonRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,6 +601,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Radius
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -24,6 +24,6 @@ public class FadingText : MonoBehaviour {
         transform.position = new Vector3(transform.position.x, transform.position.y + (finalVerticalOffset * (Time.deltaTime / timeToLive)), transform.position.z);
         textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, (1f - ((Time.time - startTime) / timeToLive)));
         if (Time.time - startTime > timeToLive)
-            SimplePool.Despawn(gameObject);
+            Pool.Despawn(gameObject);
     }
 }
