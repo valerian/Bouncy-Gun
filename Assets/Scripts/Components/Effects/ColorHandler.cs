@@ -6,7 +6,7 @@ public partial class ColorHandler : MonoBehaviour
 {
     // TODO set private and see if that works
     [RequireComponent(typeof(Renderer))]
-    public partial class ColorHandlerWorker : MonoBehaviour
+    private partial class ColorHandlerWorker : MonoBehaviour
     {  
         public static ColorHandlerWorker AddOrUpdateComponent(GameObject where)
         {

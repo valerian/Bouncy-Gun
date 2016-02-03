@@ -4,7 +4,7 @@ using System.Collections;
 public partial class ColorHandler
 {
     // TODO set private and see if that works
-    public partial class ColorHandlerWorker
+    private partial class ColorHandlerWorker
     {
         private enum MATERIAL_COLOR_PROPERTY
         {

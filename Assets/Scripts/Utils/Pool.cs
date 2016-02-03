@@ -1,5 +1,14 @@
+#if UNITY_EDITOR
+#define POOL_USE_DYNAMIC_DESPAWN
+#endif
+
+#if UNITY_EDITOR
+#define POOL_USE_DYNAMIC_SPAWN
+#endif
+
 using UnityEngine;
 using System.Collections.Generic;
+
 
 public static class Pool
 {
@@ -23,13 +32,17 @@ public static class Pool
         int nextId = 1;
         Stack<GameObject> inactive;
         GameObject prefab;
+ #if POOL_USE_DYNAMIC_SPAWN
         Transform spawnParent = null;
+#endif
 
-        GameObject _root;
+#if POOL_USE_DYNAMIC_DESPAWN
+        GameObject _root = null;
         GameObject root
         {
             get
             { 
+
                 if (!_root)
                 {
                     _root = new GameObject(prefab.name + " Pool");
@@ -39,14 +52,17 @@ public static class Pool
                 return _root;
             } 
         }
+#endif
 
         public GameObjectPool(GameObject prefab, int initialQty)
         {
             this.prefab = prefab;
             inactive = new Stack<GameObject>(initialQty);
+#if POOL_USE_DYNAMIC_SPAWN
             DynamicSpawnManager dynamicSpawnManager = Object.FindObjectOfType<DynamicSpawnManager>();
             if (dynamicSpawnManager)
                 spawnParent = dynamicSpawnManager.GetSpawnParent(prefab);
+#endif
         }
 
         public GameObject Spawn(Vector3 pos, Quaternion rot)
@@ -68,13 +84,19 @@ public static class Pool
                 obj.transform.rotation = rot;
                 obj.SetActive(true);
             }
+#if POOL_USE_DYNAMIC_SPAWN
             obj.transform.parent = spawnParent;
+#else
+            obj.transform.parent = null;
+#endif
             return obj;
         }
 
         public void Despawn(GameObject obj)
         {
+#if POOL_USE_DYNAMIC_DESPAWN
             obj.transform.parent = root.transform;
+#endif
             obj.SetActive(false);
             inactive.Push(obj);
         }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ChildrenCountInName : MonoBehaviour
 {
+#if UNITY_EDITOR
     string initialName;
 
     void OnEnable()
@@ -14,4 +15,5 @@ public class ChildrenCountInName : MonoBehaviour
     {
         gameObject.name = initialName + " x" + (gameObject.transform.childCount);
     }
+#endif
 }
