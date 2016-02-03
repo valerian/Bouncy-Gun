@@ -47,6 +47,7 @@ GameObject:
   - 114: {fileID: 11493014}
   - 114: {fileID: 11431962}
   - 114: {fileID: 11436902}
+  - 114: {fileID: 11420686}
   m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
@@ -232,6 +233,27 @@ TrailRenderer:
       rgba: 8895487
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &11420686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf965cb584cf6647b62158a9fc42fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 0
+  spawnSettings:
+  - prefab: {fileID: 113528, guid: c4b9626c00bb6ca4e9192bfe85da46ac, type: 2}
+    minInterval: 0
+    lastSpawnTime: 0
+  - prefab: {fileID: 174228, guid: 3ef92b0f9a96af84caaf170488077d6f, type: 2}
+    minInterval: 0.05
+    lastSpawnTime: 0
 --- !u!114 &11431962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,6 +352,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Range
@@ -530,6 +556,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: applyAlpha
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 113528, guid: c4b9626c00bb6ca4e9192bfe85da46ac, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.data[0].minInterval
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 174228, guid: 3ef92b0f9a96af84caaf170488077d6f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.data[1].minInterval
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

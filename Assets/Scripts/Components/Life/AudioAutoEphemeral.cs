@@ -5,6 +5,7 @@ using System.Collections;
 public class AudioAutoEphemeral : Ephemeral
 {
     private AudioSource audioSource;
+    public float extraTime = 0f;
 
     void Awake()
     {
@@ -13,7 +14,7 @@ public class AudioAutoEphemeral : Ephemeral
 
     void OnEnableDelayed()
     {
-        totalDuration = audioSource.clip.length / audioSource.pitch;
+        totalDuration = extraTime + (audioSource.clip.length / audioSource.pitch);
         StartCoroutine(DespawnAfterRemainingTime());
     }
 }

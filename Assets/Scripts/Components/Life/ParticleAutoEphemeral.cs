@@ -5,6 +5,7 @@ using System.Collections;
 public class ParticleAutoEphemeral : Ephemeral
 {
     private ParticleSystem particleSystemComponent;
+    public float extraTime = 0f;
 
     void Awake()
     {
@@ -13,7 +14,7 @@ public class ParticleAutoEphemeral : Ephemeral
 
     void OnEnableDelayed()
     {
-        totalDuration = particleSystemComponent.duration + particleSystemComponent.startLifetime;
+        totalDuration = extraTime + particleSystemComponent.duration + particleSystemComponent.startLifetime;
         StartCoroutine(DespawnAfterRemainingTime());
     }
 }

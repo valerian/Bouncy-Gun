@@ -812,6 +812,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 311437701}
+  - 114: {fileID: 311437702}
   m_Layer: 0
   m_Name: Particles
   m_TagString: Untagged
@@ -831,6 +832,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563945530}
   m_RootOrder: 2
+--- !u!114 &311437702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 311437700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc43801c6e76d66469525eba0308e272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &373959439
 GameObject:
   m_ObjectHideFlags: 0
@@ -5672,6 +5684,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 984217693}
+  - 114: {fileID: 984217694}
   m_Layer: 0
   m_Name: Projectiles
   m_TagString: Untagged
@@ -5691,6 +5704,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563945530}
   m_RootOrder: 1
+--- !u!114 &984217694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 984217692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc43801c6e76d66469525eba0308e272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &994899188
 GameObject:
   m_ObjectHideFlags: 0
@@ -7736,6 +7760,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1700415821}
+  - 114: {fileID: 1700415822}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -7755,6 +7780,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563945530}
   m_RootOrder: 3
+--- !u!114 &1700415822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1700415820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc43801c6e76d66469525eba0308e272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1708478047
 GameObject:
   m_ObjectHideFlags: 0
@@ -10376,6 +10412,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2064201927}
+  - 114: {fileID: 2064201928}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -10395,6 +10432,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563945530}
   m_RootOrder: 0
+--- !u!114 &2064201928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2064201926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc43801c6e76d66469525eba0308e272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2066490886
 GameObject:
   m_ObjectHideFlags: 0
@@ -12208,7 +12256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0007872949c704999997f4b2915acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipToLevel: 0
 --- !u!114 &2087156140
 MonoBehaviour:
   m_ObjectHideFlags: 0

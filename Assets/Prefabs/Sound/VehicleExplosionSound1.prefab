@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 414488}
   - 82: {fileID: 8278434}
+  - 114: {fileID: 11426314}
+  - 114: {fileID: 11466588}
   m_Layer: 0
   m_Name: VehicleExplosionSound1
   m_TagString: Untagged
@@ -40,7 +42,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 7a6325f449522cb49ba08f566590becb, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.15
-  m_Pitch: 1.2
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -50,9 +52,9 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassEffects: 1
+  BypassListenerEffects: 1
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -102,6 +104,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &11426314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73d26619941d3fb4fbb2c980050a50be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _totalDuration: 0
+  extraTime: 0
+--- !u!114 &11466588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3539d5b8ac81a53468884feafad861af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchMin: 1
+  pitchMax: 1.5
+  volumeMin: 1
+  volumeMax: 1
+  delayMin: 0
+  delayMax: 0.15
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -120,6 +152,30 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BypassEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BypassListenerEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BypassReverbZones
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pitchMax
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: delayMax
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

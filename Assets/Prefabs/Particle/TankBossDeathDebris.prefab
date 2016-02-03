@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 421154}
   - 198: {fileID: 19893608}
   - 199: {fileID: 19948890}
+  - 114: {fileID: 11426770}
   m_Layer: 0
   m_Name: TankBossDeathDebris
   m_TagString: Untagged
@@ -29,6 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11426770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec65563e4aa6d204f8eca06b01754567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _totalDuration: 0
+  extraTime: 0
 --- !u!198 &19893608
 ParticleSystem:
   m_ObjectHideFlags: 1

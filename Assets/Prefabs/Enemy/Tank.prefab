@@ -54,6 +54,7 @@ GameObject:
   - 114: {fileID: 11455784}
   - 114: {fileID: 11436244}
   - 114: {fileID: 11414166}
+  - 114: {fileID: 11472688}
   m_Layer: 8
   m_Name: Tank
   m_TagString: Enemy
@@ -482,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8521fa620da0c0341be3402be07f84c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tintInit: {r: 0, g: 0, b: 0, a: 1}
+  Tint: {r: 0, g: 0, b: 0, a: 0}
   applyHue: 0
   applySaturation: 0
   applyBrightness: 1
@@ -548,10 +549,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   damageMultiplicator: 0.5
-  collisionParticleMinInterval: 0.5
   collisionSoundMinInterval: 0.2
-  collisionParticlePrefab: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317,
-    type: 2}
   collisionSoundPrefab: {fileID: 183206, guid: 903029baa168c31409e4d1ff8592f59c, type: 2}
 --- !u!114 &11460064
 MonoBehaviour:
@@ -568,10 +566,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1280
   damageMultiplicator: 1
-  collisionParticleMinInterval: 0.5
   collisionSoundMinInterval: 0.2
-  collisionParticlePrefab: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317,
-    type: 2}
   collisionSoundPrefab: {fileID: 183206, guid: 903029baa168c31409e4d1ff8592f59c, type: 2}
 --- !u!114 &11462074
 MonoBehaviour:
@@ -587,6 +582,24 @@ MonoBehaviour:
   _onDepleted: 2
   _healthMax: 100
   _healthCurrent: 0
+--- !u!114 &11472688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf965cb584cf6647b62158a9fc42fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 1280
+  spawnSettings:
+  - prefab: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317, type: 2}
+    minInterval: 0.25
+    lastSpawnTime: 0
 --- !u!114 &11484096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -618,6 +631,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: spawnPrefabsOnDeath.Array.size
       value: 3
@@ -756,7 +773,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: layers.m_Bits
-      value: 512
+      value: 1280
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
@@ -841,6 +858,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: tintInit.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnSettings.Array.data[0].minInterval
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
