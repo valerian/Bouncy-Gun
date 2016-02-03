@@ -1,12 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-public partial class ColorHander
+public partial class ColorHandler
 {
     // TODO set private and see if that works
     public partial class ColorHandlerWorker
     {
-        private Material material;
+        private enum MATERIAL_COLOR_PROPERTY
+        {
+            undetermined,
+            _Color,
+            _TintColor,
+        }
+
+        private Renderer rendererComponent;
+        private MATERIAL_COLOR_PROPERTY materialColorProperty;
         private HSBColor initialColor;
         private HSBColor _currentColor;
         private HSBColor currentColor
@@ -15,19 +23,56 @@ public partial class ColorHander
             set
             {
                 _currentColor = value;
-                material.color = value.ToColor();
+                SetMaterialColor(value.ToColor());
             }
         }
 
         void Awake()
         {
-            material = GetComponent<Renderer>().material;
-            initialColor = _currentColor = HSBColor.FromColor(material.color);
+            rendererComponent = GetComponent<Renderer>();
+            if (rendererComponent.material.HasProperty("_Color"))
+                materialColorProperty = MATERIAL_COLOR_PROPERTY._Color;
+            else if (rendererComponent.material.HasProperty("_TintColor"))
+                materialColorProperty = MATERIAL_COLOR_PROPERTY._TintColor;
+            else
+            {
+                materialColorProperty = MATERIAL_COLOR_PROPERTY.undetermined;
+                Debug.LogError("Could not find uny usable color property in Renderer.material");
+            }
+            initialColor = _currentColor = HSBColor.FromColor(getMaterialColor());
         }
 
         void OnEnable()
         {
             Reset();
+        }
+
+        void SetMaterialColor(Color color)
+        {
+            switch (materialColorProperty)
+            {
+                case MATERIAL_COLOR_PROPERTY._Color:
+                    rendererComponent.material.SetColor("_Color", color);
+                    break;
+                case MATERIAL_COLOR_PROPERTY._TintColor:
+                    rendererComponent.material.SetColor("_TintColor", color);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Color getMaterialColor()
+        {
+            switch (materialColorProperty)
+            {
+                case MATERIAL_COLOR_PROPERTY._Color:
+                    return rendererComponent.material.GetColor("_Color");
+                case MATERIAL_COLOR_PROPERTY._TintColor:
+                    return rendererComponent.material.GetColor("_TintColor");
+                default:
+                    return default(Color);
+            }
         }
 
         public void Reset()

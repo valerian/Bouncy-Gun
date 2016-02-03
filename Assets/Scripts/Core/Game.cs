@@ -41,6 +41,15 @@ public partial class Game : Singleton<Game>
 
     [SerializeField] private GameData gameData = default(GameData);
     [SerializeField] private STATE _state = STATE.preInit;
+    public Dictionary<STATE, bool> GCOnState = new Dictionary<STATE, bool>
+    {
+        {STATE.preInit, true},
+        {STATE.home, false},
+        {STATE.play, false},
+        {STATE.playLose, false},
+        {STATE.playEndLevel, true},
+        {STATE.playPause, true},
+    };
     private UnityEventGameStates _onStateChanged = new UnityEventGameStates();
     private InputManager inputManager = null;
     private EnemySpawnManager spawnManager = null;
@@ -109,6 +118,11 @@ public partial class Game : Singleton<Game>
             Time.timeScale = 1f;
         onStateChanged.Invoke(previousState, newState);
         onState[newState].Invoke();
+        if (GCOnState.ContainsKey(newState) && GCOnState[newState])
+        {
+            GC.Collect();
+            Resources.UnloadUnusedAssets();
+        }
     }
 
     public void TogglePlayPause()

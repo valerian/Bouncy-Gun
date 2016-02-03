@@ -1,25 +1,25 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(ColorHander))]
+[RequireComponent(typeof(ColorHandler))]
 [RequireComponent(typeof(Health))]
 public class TintOnDamage : MonoBehaviour
 {
     [SerializeField]
-    private Color tintInit;
+    private Color Tint;
 
     public bool applyHue = true;
     public bool applySaturation = true;
     public bool applyBrightness = true;
     public bool applyAlpha = true;
 
-    private ColorHander colorHandler;
+    private ColorHandler colorHandler;
     private HSBColor tint;
 
     void Awake()
     {
-        tint = HSBColor.FromColor(tintInit);
-        colorHandler = GetComponent<ColorHander>();
+        tint = HSBColor.FromColor(Tint);
+        colorHandler = GetComponent<ColorHandler>();
         GetComponent<Health>().onHealthChanged.AddListener(OnHealthChanged);
     }
 

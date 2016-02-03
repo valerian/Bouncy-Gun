@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 461044}
   - 96: {fileID: 9615272}
-  - 114: {fileID: 11472808}
   m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
@@ -27,7 +26,6 @@ GameObject:
   - 4: {fileID: 493876}
   - 33: {fileID: 3337972}
   - 23: {fileID: 2350506}
-  - 114: {fileID: 11401454}
   m_Layer: 9
   m_Name: Body
   m_TagString: Player
@@ -45,6 +43,10 @@ GameObject:
   - 4: {fileID: 453100}
   - 50: {fileID: 5077950}
   - 58: {fileID: 5813820}
+  - 114: {fileID: 11476664}
+  - 114: {fileID: 11493014}
+  - 114: {fileID: 11431962}
+  - 114: {fileID: 11436902}
   m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
@@ -61,7 +63,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 472590}
   - 212: {fileID: 21218184}
-  - 114: {fileID: 11485772}
   m_Layer: 9
   m_Name: Glow
   m_TagString: Untagged
@@ -231,42 +232,64 @@ TrailRenderer:
       rgba: 8895487
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!114 &11401454
+--- !u!114 &11431962
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 142884}
+  m_GameObject: {fileID: 159854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f67aa8f870a8b4fbc0789a51edcb96, type: 3}
+  m_Script: {fileID: 11500000, guid: b0ffff007bc37294bad9b27dd2fc8909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeStartPoint: 0
---- !u!114 &11472808
+  Tnit: {r: 0, g: 0, b: 0, a: 0}
+  startPoint: 0.7
+  applyHue: 0
+  applySaturation: 0
+  applyBrightness: 0
+  applyAlpha: 1
+--- !u!114 &11436902
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138064}
+  m_GameObject: {fileID: 159854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f67aa8f870a8b4fbc0789a51edcb96, type: 3}
+  m_Script: {fileID: 11500000, guid: b0ffff007bc37294bad9b27dd2fc8909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeStartPoint: 0
---- !u!114 &11485772
+  Tnit: {r: 1, g: 0.3517241, b: 0, a: 0}
+  startPoint: 0.6
+  applyHue: 1
+  applySaturation: 1
+  applyBrightness: 1
+  applyAlpha: 0
+--- !u!114 &11476664
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192862}
+  m_GameObject: {fileID: 159854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f67aa8f870a8b4fbc0789a51edcb96, type: 3}
+  m_Script: {fileID: 11500000, guid: e7f84b5c840c2a24e968641449956436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeStartPoint: 0.7
+  _totalDuration: 2
+--- !u!114 &11493014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64c34dc267a86f4c817da0aee9fd136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleChildren: 1
 --- !u!212 &21218184
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -458,7 +481,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: _totalDuration
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startRatio
@@ -471,6 +494,42 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: applyHue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: applySaturation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: applyBrightness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: startPoint
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Tnit.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Tnit.g
+      value: 0.3517241
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Tnit.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Tnit.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: applyAlpha
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

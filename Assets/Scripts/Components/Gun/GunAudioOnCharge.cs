@@ -28,9 +28,9 @@ public class GunAudioOnCharge : MonoBehaviour
     {
         if (!looping)
             return;
-        if (audioSource.time / Mathf.Abs(audioSource.pitch) >= chargingTime + 0.2f)
+        if (audioSource.time / Mathf.Abs(audioSource.pitch) >= chargingTime + 0.075f)
             audioSource.pitch = -Mathf.Abs(audioSource.pitch);
-        if (audioSource.time / Mathf.Abs(audioSource.pitch) <= Mathf.Max(chargingTime - 0.0f, 0f))
+        if (audioSource.time / Mathf.Abs(audioSource.pitch) <= Mathf.Max(chargingTime - 0.075f, 0f))
             audioSource.pitch = Mathf.Abs(audioSource.pitch);
     }
 
@@ -48,7 +48,7 @@ public class GunAudioOnCharge : MonoBehaviour
 
     void AudioLoop()
     {
-        chargingTime = audioSource.time / audioSource.pitch;
+        chargingTime = Game.GameData.gunChargeTime;
         looping = true;
     }
 }

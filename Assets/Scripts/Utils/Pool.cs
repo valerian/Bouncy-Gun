@@ -34,6 +34,7 @@ public static class Pool
                 {
                     _root = new GameObject(prefab.name + " Pool");
                     _root.transform.parent = Pool.root.transform;
+                    _root.AddComponent<ChildrenCountInName>();
                 }
                 return _root;
             } 
@@ -131,5 +132,10 @@ public static class Pool
         }
         else
             pm.myPool.Despawn(obj);
+    }
+
+    static public void Despawn(GameObject obj, float time)
+    {
+        
     }
 }

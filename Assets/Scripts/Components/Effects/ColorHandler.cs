@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public partial class ColorHander : MonoBehaviour
+public partial class ColorHandler : MonoBehaviour
 {
     // TODO set private and see if that works
     [RequireComponent(typeof(Renderer))]
@@ -21,11 +21,12 @@ public partial class ColorHander : MonoBehaviour
     
     void Awake()
     {
-        if (GetComponent<Renderer>() != null)
-            workers.Add(ColorHandlerWorker.AddOrUpdateComponent(gameObject));
         if (handleChildren)
             foreach (Renderer rendererComponent in GetComponentsInChildren<Renderer>())
                 workers.Add(ColorHandlerWorker.AddOrUpdateComponent(rendererComponent.gameObject));
+        else
+            if (GetComponent<Renderer>() != null)
+                workers.Add(ColorHandlerWorker.AddOrUpdateComponent(gameObject));
     }
 
     // COLOR PARTS SETTERS

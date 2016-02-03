@@ -45,11 +45,15 @@ GameObject:
   - 4: {fileID: 416238}
   - 50: {fileID: 5019316}
   - 58: {fileID: 5886176}
+  - 82: {fileID: 8209504}
   - 114: {fileID: 11484096}
   - 114: {fileID: 11423112}
   - 114: {fileID: 11462074}
   - 114: {fileID: 11441890}
   - 114: {fileID: 11460064}
+  - 114: {fileID: 11455784}
+  - 114: {fileID: 11436244}
+  - 114: {fileID: 11414166}
   m_Layer: 8
   m_Name: Tank
   m_TagString: Enemy
@@ -393,6 +397,96 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &8209504
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1e25d1616c40661419ab56cad8e7accf, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 50
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 1
+  BypassListenerEffects: 1
+  BypassReverbZones: 1
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &11414166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8521fa620da0c0341be3402be07f84c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tintInit: {r: 0, g: 0, b: 0, a: 1}
+  applyHue: 0
+  applySaturation: 0
+  applyBrightness: 1
+  applyAlpha: 0
 --- !u!114 &11423112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -407,6 +501,18 @@ MonoBehaviour:
   boundaryX: 6.8
   respawnMaxX: 6
   respawnShiftY: 1
+--- !u!114 &11436244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64c34dc267a86f4c817da0aee9fd136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleChildren: 1
 --- !u!114 &11441890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,6 +533,26 @@ MonoBehaviour:
   affectedLayers:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &11455784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdcb602443069c4469a2a368f8569400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 512
+  damageMultiplicator: 0.5
+  collisionParticleMinInterval: 0.5
+  collisionSoundMinInterval: 0.2
+  collisionParticlePrefab: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317,
+    type: 2}
+  collisionSoundPrefab: {fileID: 183206, guid: 903029baa168c31409e4d1ff8592f59c, type: 2}
 --- !u!114 &11460064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,13 +566,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layers:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1280
   damageMultiplicator: 1
   collisionParticleMinInterval: 0.5
   collisionSoundMinInterval: 0.2
   collisionParticlePrefab: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317,
     type: 2}
-  collisionSound: {fileID: 0}
+  collisionSoundPrefab: {fileID: 183206, guid: 903029baa168c31409e4d1ff8592f59c, type: 2}
 --- !u!114 &11462074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -630,7 +756,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: layers.m_Bits
-      value: 1792
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
@@ -656,6 +782,66 @@ Prefab:
       propertyPath: collisionParticlePrefab
       value: 
       objectReference: {fileID: 184536, guid: 1fac5cf081d25724ea2a0fdf1d29b317, type: 2}
+    - target: {fileID: 0}
+      propertyPath: damageMultiplicator
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BypassEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BypassListenerEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BypassReverbZones
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Priority
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: collisionSound
+      value: 
+      objectReference: {fileID: 8209504}
+    - target: {fileID: 0}
+      propertyPath: collisionSoundPrefab
+      value: 
+      objectReference: {fileID: 183206, guid: 903029baa168c31409e4d1ff8592f59c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: applyBrightness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tintInit.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tintInit.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tintInit.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: applySaturation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: applyHue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: applyAlpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: tintInit.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159892}
