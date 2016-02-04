@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System.Reflection;
 
 [System.Serializable]
 public struct EnemyDefinition
@@ -71,6 +72,34 @@ public class EnemySpawnManager : MonoBehaviour
     void Awake()
     {
         Game.instance.onState[Game.STATE.play].AddListener(OnPlayStart);
+        //DebugTestComponents();
+    }
+
+    void DebugTestComponents()
+    {
+        GameObject prefab = enemies[0].prefab;
+        Component[] components = prefab.GetComponents<Component>();
+        foreach (Component comp in components)
+        {
+            Debug.Log("Component: " + comp.GetType());
+        }
+
+        foreach (Component comp in components)
+        {
+            Debug.Log("=============\nComponent: " + comp.GetType());
+            System.Type type = comp.GetType();
+            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
+            PropertyInfo[] pinfos = type.GetProperties();
+            foreach (var pinfo in pinfos)
+            {
+                Debug.Log("Property " + pinfo.Name + " (CanWrite = " + pinfo.CanWrite + ")");
+            }
+            FieldInfo[] finfos = type.GetFields();
+            foreach (var finfo in finfos)
+            {
+                Debug.Log("Field " + finfo.Name);
+            }
+        }
     }
 
     void OnPlayStart()

@@ -8,26 +8,27 @@ public class TEST_ExecutionOrder : MonoBehaviour
     
     void Awake()
     {
-        Debug.Log("Awake " + Time.realtimeSinceStartup);
+        Debug.Log(gameObject.name + " Awake " + Time.realtimeSinceStartup);
     }
 
     void OnEnable()
     {
-        Debug.Log("OnEnable Begin " + Time.realtimeSinceStartup);
-        StartCoroutine(MyCoroutine());
-        Debug.Log("OnEnable End " + Time.realtimeSinceStartup);
+        Debug.Log(gameObject.name + " OnEnable Begin " + Time.realtimeSinceStartup);
+        StartCoroutine(MyCoroutineNull());
+        StartCoroutine(MyCoroutineFixedUpdate());
+        Debug.Log(gameObject.name + " OnEnable End " + Time.realtimeSinceStartup);
     }
 
     void Start()
     {
-        Debug.Log("Start " + Time.realtimeSinceStartup);
+        Debug.Log(gameObject.name + " Start " + Time.realtimeSinceStartup);
     }
 
     void FixedUpdate()
     {
         if (fixedUpdateToLog > 0)
         {
-            Debug.Log("FixedUpdate " + Time.realtimeSinceStartup);
+            Debug.Log(gameObject.name + " FixedUpdate " + Time.realtimeSinceStartup);
             fixedUpdateToLog--;
         }
 
@@ -37,16 +38,21 @@ public class TEST_ExecutionOrder : MonoBehaviour
     {
         if (updateToLog > 0)
         {
-            Debug.Log("Update " + Time.realtimeSinceStartup);
+            Debug.Log(gameObject.name + " Update " + Time.realtimeSinceStartup);
             updateToLog--;
         } 
     }
 
 
-    IEnumerator MyCoroutine()
+    IEnumerator MyCoroutineNull()
     {
-        Debug.Log("MyCoroutine Begin " + Time.realtimeSinceStartup);
+        yield return null;
+        Debug.Log(gameObject.name + " Coroutine Null " + Time.realtimeSinceStartup);
+    }
+
+    IEnumerator MyCoroutineFixedUpdate()
+    {
         yield return new WaitForFixedUpdate();
-        Debug.Log("MyCoroutine End " + Time.realtimeSinceStartup);
+        Debug.Log(gameObject.name + " Coroutine FixedUpdate " + Time.realtimeSinceStartup);
     }
 }

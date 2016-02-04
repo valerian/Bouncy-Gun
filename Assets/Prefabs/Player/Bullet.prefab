@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1792
   spawnSettings:
   - prefab: {fileID: 113528, guid: c4b9626c00bb6ca4e9192bfe85da46ac, type: 2}
     minInterval: 0
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tnit: {r: 0, g: 0, b: 0, a: 0}
-  startPoint: 0.7
+  startPoint: 0.6
   applyHue: 0
   applySaturation: 0
   applyBrightness: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f84b5c840c2a24e968641449956436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _totalDuration: 2
+  _totalDuration: 0.5
 --- !u!114 &11493014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -507,7 +507,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: _totalDuration
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: startRatio
@@ -572,6 +572,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: spawnSettings.Array.data[1].minInterval
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: layers.m_Bits
+      value: 1792
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
