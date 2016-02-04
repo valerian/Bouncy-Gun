@@ -22,8 +22,11 @@ public partial class ColorHandler : MonoBehaviour
     void Awake()
     {
         if (handleChildren)
-            foreach (Renderer rendererComponent in GetComponentsInChildren<Renderer>())
-                workers.Add(ColorHandlerWorker.AddOrUpdateComponent(rendererComponent.gameObject));
+        {
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+            for (int i = 0; i < renderers.Length; i++)
+                workers.Add(ColorHandlerWorker.AddOrUpdateComponent(renderers[i].gameObject));
+        }
         else
             if (GetComponent<Renderer>() != null)
                 workers.Add(ColorHandlerWorker.AddOrUpdateComponent(gameObject));

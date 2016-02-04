@@ -15,7 +15,6 @@ public class Health : MonoBehaviour
     private ON_DEPLETED _onDepleted = ON_DEPLETED.dieAndDespawn;
     [SerializeField]
     private float _healthMax = 100f;
-    [SerializeField]
     private float _healthCurrent = 0f;
     private float _healthPrevious = 0f;
 

@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Unstuck : MonoBehaviour
 {
-    [SerializeField] private float boundaryX = 6.8f;
-    [SerializeField] private float respawnMaxX = 6f;
-    [SerializeField] private float respawnShiftY = 1f;
+    public float boundaryX = 6.8f;
+    public float respawnMaxX = 6f;
+    public float respawnShiftY = 1f;
 
     void FixedUpdate()
     {

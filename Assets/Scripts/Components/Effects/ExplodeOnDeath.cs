@@ -17,12 +17,12 @@ public class ExplodeOnDeath : MonoBehaviour
 
     void Explode()
     {
-        foreach (GameObject prefab in spawnPrefabsOnDeath)
-            Pool.Spawn(prefab, transform.position);
+        for (int i = 0; i < spawnPrefabsOnDeath.Length; i++)
+            Pool.Spawn(spawnPrefabsOnDeath[i], transform.position);
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
-        foreach (Collider2D hit in colliders)
+        for (int i = 0; i < colliders.Length; i++)
         {
-            Rigidbody2D rigidBody = hit.GetComponent<Rigidbody2D>();
+            Rigidbody2D rigidBody = colliders[i].GetComponent<Rigidbody2D>();
             if (rigidBody != null && ((1 << rigidBody.gameObject.layer) & affectedLayers.value) != 0)
             {
                 Vector3 direction = (rigidBody.transform.position - transform.position);

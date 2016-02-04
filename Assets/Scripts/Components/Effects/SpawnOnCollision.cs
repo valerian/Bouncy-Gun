@@ -26,6 +26,8 @@ public class SpawnOnCollision : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
+        if (((1 << collision.gameObject.layer) & layers.value) == 0)
+            return;
         for (int i = 0; i < spawnSettings.Length; i++)
         {
             if (spawnSettings[i].lastSpawnTime + spawnSettings[i].minInterval > Time.time)
